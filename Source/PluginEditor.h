@@ -36,6 +36,7 @@ private:
     static const int ROTARY_WIDTH = 140;
     static const int ROTARY_HEIGHT = 140;
     static const int GROUP_PAD = 20;
+    static const int GROUP_DIVIDER_WIDTH = 6;
     
     LabeledRotary cacheSizeRotary {
       500, 5000, 1, 1000,
