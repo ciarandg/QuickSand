@@ -64,5 +64,35 @@ private:
       { &wetDryRotary }
     };
 
+    int getDialX(int dial_index) {
+      std::vector<int> group_sizes;
+      for (std::vector<LabeledRotary*> group : dial_groups) {
+        group_sizes.push_back(group.size());
+      }
+      
+      int x_pos = 0, acc = 0;
+      for (int s : group_sizes) {
+        int group_end = acc+s;
+        
+        bool dial_in_group = dial_index < group_end;
+        x_pos += ROTARY_WIDTH*(dial_in_group ? dial_index-acc : s);
+        if (dial_in_group) break;
+        
+        x_pos += GROUP_PAD;
+        acc += s;
+      }
+      return x_pos;
+    }
+    
+    int getGroupX(int group_index) {
+      int dial_count = 0;
+
+      for (int g = 0; g < group_index; ++g) {
+        dial_count += dial_groups[g].size();
+      }
+
+      return getDialX(dial_count);
+    }
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (QuickSandAudioProcessorEditor)
 };

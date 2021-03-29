@@ -36,7 +36,7 @@ void QuickSandAudioProcessorEditor::resized()
   int dialCount = 0;
   for (int group = 0; group < dial_groups.size(); ++group) {
     for (LabeledRotary* dial : dial_groups[group]) {
-      dial->setBounds(ROTARY_WIDTH*dialCount + GROUP_PAD*group, TOP_PAD, ROTARY_WIDTH, ROTARY_HEIGHT);
+      dial->setBounds(getDialX(dialCount), TOP_PAD, ROTARY_WIDTH, ROTARY_HEIGHT);
       ++dialCount;
     }
   }
