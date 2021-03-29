@@ -22,6 +22,9 @@ QuickSandAudioProcessor::QuickSandAudioProcessor()
                        )
 #endif
 {
+    addParameter(cacheSizeParameter = new juce::AudioParameterInt(
+        "cache_size", "Cache Size (ms)", 500, 5000, 1000
+        ));
 }
 
 QuickSandAudioProcessor::~QuickSandAudioProcessor()
