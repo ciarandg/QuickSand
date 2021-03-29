@@ -34,7 +34,10 @@ public:
     label.attachToComponent(this, false);
     // colours
     setColour(rotarySliderFillColourId,     highlight);
+    setColour(rotarySliderOutlineColourId,  COLOUR_BG_LIGHT);
     setColour(thumbColourId,                juce::Colours::transparentBlack);
+    setColour(textBoxOutlineColourId,       COLOUR_TEXT);
+    setColour(textBoxTextColourId,          COLOUR_TEXT);
     label.setColour(juce::Label::ColourIds::textColourId, COLOUR_TEXT);
   };
 
