@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "ColourScheme.h"
 
 class LabeledRotary : public juce::Slider {
 public:
@@ -34,6 +35,7 @@ public:
     // colours
     setColour(rotarySliderFillColourId,     highlight);
     setColour(thumbColourId,                juce::Colours::transparentBlack);
+    label.setColour(juce::Label::ColourIds::textColourId, COLOUR_TEXT);
   };
 private:
   static const int TEXT_BOX_WIDTH = 100;
