@@ -27,6 +27,26 @@ QuickSandAudioProcessor::QuickSandAudioProcessor()
         CACHE_SIZE_PARAM_DATA.id, CACHE_SIZE_PARAM_DATA.name,
         CACHE_SIZE_PARAM_DATA.min, CACHE_SIZE_PARAM_DATA.max, CACHE_SIZE_PARAM_DATA.initial
     ));
+    addParameter(grainSizeParameter = new juce::AudioParameterInt(
+        GRAIN_SIZE_PARAM_DATA.id, GRAIN_SIZE_PARAM_DATA.name,
+        GRAIN_SIZE_PARAM_DATA.min, GRAIN_SIZE_PARAM_DATA.max, GRAIN_SIZE_PARAM_DATA.initial
+    ));
+    addParameter(grainShapeParameter = new juce::AudioParameterInt(
+        GRAIN_SHAPE_PARAM_DATA.id, GRAIN_SHAPE_PARAM_DATA.name,
+        GRAIN_SHAPE_PARAM_DATA.min, GRAIN_SHAPE_PARAM_DATA.max, GRAIN_SHAPE_PARAM_DATA.initial
+    ));
+    addParameter(randomnessParameter = new juce::AudioParameterInt(
+        GRAIN_RAND_PARAM_DATA.id, GRAIN_RAND_PARAM_DATA.name,
+        GRAIN_RAND_PARAM_DATA.min, GRAIN_RAND_PARAM_DATA.max, GRAIN_RAND_PARAM_DATA.initial
+    ));
+    addParameter(grainOverlapParameter = new juce::AudioParameterInt(
+        GRAIN_OVERLAP_PARAM_DATA.id, GRAIN_OVERLAP_PARAM_DATA.name,
+        GRAIN_OVERLAP_PARAM_DATA.min, GRAIN_OVERLAP_PARAM_DATA.max, GRAIN_OVERLAP_PARAM_DATA.initial
+    ));
+    addParameter(wetDryParameter = new juce::AudioParameterInt(
+        WET_DRY_PARAM_DATA.id, WET_DRY_PARAM_DATA.name,
+        WET_DRY_PARAM_DATA.min, WET_DRY_PARAM_DATA.max, WET_DRY_PARAM_DATA.initial
+    ));
 }
 
 QuickSandAudioProcessor::~QuickSandAudioProcessor()

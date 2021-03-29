@@ -47,24 +47,34 @@ private:
       *audioProcessor.cacheSizeParameter, cacheSizeRotary
     };
     LabeledRotary grainSizeRotary {
-      1, 450, 0.1, 20,
-      "Grain Size", " ms", COLOUR_ACCENT_1
+      GRAIN_SIZE_PARAM_DATA, COLOUR_ACCENT_1
+    };
+    juce::SliderParameterAttachment grainSizeParamAttach {
+      *audioProcessor.grainSizeParameter, grainSizeRotary
     };
     LabeledRotary grainShapeRotary {
-      5, 100, 1, 50,
-      "Shape", "%", COLOUR_ACCENT_1
+      GRAIN_SHAPE_PARAM_DATA, COLOUR_ACCENT_1
+    };
+    juce::SliderParameterAttachment grainShapeParamAttach {
+      *audioProcessor.grainShapeParameter, grainShapeRotary
     };
     LabeledRotary grainRandomnessRotary {
-      0, 100, 1, 50,
-      "Randomness", "%", COLOUR_ACCENT_1
+      GRAIN_RAND_PARAM_DATA, COLOUR_ACCENT_1
+    };
+    juce::SliderParameterAttachment grainRandomnessParamAttach {
+      *audioProcessor.randomnessParameter, grainRandomnessRotary
     };
     LabeledRotary grainOverlapRotary {
-      0.5, 2.0, 0.01, 1.0,
-      "Overlap", " grains", COLOUR_ACCENT_1
+      GRAIN_OVERLAP_PARAM_DATA, COLOUR_ACCENT_1
+    };
+    juce::SliderParameterAttachment grainOverlapParamAttach {
+      *audioProcessor.grainOverlapParameter, grainOverlapRotary
     };
     LabeledRotary wetDryRotary {
-      0, 100, 0.1, 100,
-      "Wet/Dry", "%", COLOUR_ACCENT_5
+      WET_DRY_PARAM_DATA, COLOUR_ACCENT_5
+    };
+    juce::SliderParameterAttachment wetDryParamAttach {
+      *audioProcessor.wetDryParameter, wetDryRotary
     };
     
     std::vector<std::vector<LabeledRotary*>> dial_groups = {
