@@ -37,6 +37,9 @@ void QuickSandAudioProcessorEditor::paint (juce::Graphics& g)
       int line_x = getGroupX(group)-GROUP_PAD/2;
       g.drawLine(line_x, 0, line_x, WINDOW_HEIGHT, GROUP_DIVIDER_WIDTH);
     }
+    
+    g.setColour(COLOUR_ACCENT_1);
+    grain_shape_graphic.draw(0.5, g);
 }
 
 void QuickSandAudioProcessorEditor::resized()

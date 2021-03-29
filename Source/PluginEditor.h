@@ -13,6 +13,7 @@
 #include "PluginProcessor.h"
 #include "GUI/ColourScheme.h"
 #include "GUI/LabeledRotary.h"
+#include "GUI/EnvelopeGraphic.h"
 
 //==============================================================================
 /**
@@ -69,6 +70,8 @@ private:
       { &wetDryRotary }
     };
     
+    EnvelopeGraphic grain_shape_graphic{getDialX(2)+ROTARY_WIDTH/2, 75};
+    
     int getDialX(int dial_index) {
       std::vector<int> group_sizes;
       for (std::vector<LabeledRotary*> group : dial_groups) {
@@ -91,11 +94,9 @@ private:
     
     int getGroupX(int group_index) {
       int dial_count = 0;
-
       for (int g = 0; g < group_index; ++g) {
         dial_count += dial_groups[g].size();
       }
-
       return getDialX(dial_count);
     }
 
