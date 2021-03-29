@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "ColourScheme.h"
+#include "../ParamData.h"
 
 class LabeledRotary : public juce::Slider {
 public:
@@ -39,7 +40,10 @@ public:
     setColour(textBoxOutlineColourId,       COLOUR_TEXT);
     setColour(textBoxTextColourId,          COLOUR_TEXT);
     label.setColour(juce::Label::ColourIds::textColourId, COLOUR_TEXT);
-  };
+  }
+  LabeledRotary(const struct param data, const juce::Colour &highlight)
+    : LabeledRotary(data.min, data.max, data.step, data.initial, data.name, data.suffix, highlight)
+  {}
 
 private:
   static const int TEXT_BOX_WIDTH = 100;

@@ -14,6 +14,7 @@
 #include "GUI/ColourScheme.h"
 #include "GUI/LabeledRotary.h"
 #include "GUI/EnvelopeGraphic.h"
+#include "ParamData.h"
 
 //==============================================================================
 /**
@@ -40,8 +41,10 @@ private:
     static const int GROUP_DIVIDER_WIDTH = 6;
     
     LabeledRotary cacheSizeRotary {
-      500, 5000, 1, 1000,
-      "Cache Size", " ms", COLOUR_ACCENT_2
+      CACHE_SIZE_PARAM_DATA, COLOUR_ACCENT_2
+    };
+    juce::SliderParameterAttachment cacheSizeParamAttach {
+      *audioProcessor.cacheSizeParameter, cacheSizeRotary
     };
     LabeledRotary grainSizeRotary {
       1, 450, 0.1, 20,
