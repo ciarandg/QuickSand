@@ -6,6 +6,7 @@
   ==============================================================================
 */
 
+#include "GUI/ColourScheme.h"
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
