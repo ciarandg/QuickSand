@@ -46,10 +46,14 @@ private:
       "Grain Size", " ms", COLOUR_ACCENT_1
     };
     LabeledRotary grainShapeRotary {
-      0, 100, 1, 50,
+      5, 100, 1, 50,
       "Shape", "%", COLOUR_ACCENT_1
     };
     LabeledRotary grainRandomnessRotary {
+      0, 100, 1, 50,
+      "Randomness", "%", COLOUR_ACCENT_1
+    };
+    LabeledRotary grainOverlapRotary {
       0.5, 2.0, 0.01, 1.0,
       "Overlap", " grains", COLOUR_ACCENT_1
     };
@@ -60,10 +64,10 @@ private:
     
     std::vector<std::vector<LabeledRotary*>> dial_groups = {
       { &cacheSizeRotary },
-      { &grainSizeRotary, &grainShapeRotary, &grainRandomnessRotary },
+      { &grainSizeRotary, &grainShapeRotary, &grainRandomnessRotary, &grainOverlapRotary },
       { &wetDryRotary }
     };
-
+    
     int getDialX(int dial_index) {
       std::vector<int> group_sizes;
       for (std::vector<LabeledRotary*> group : dial_groups) {
