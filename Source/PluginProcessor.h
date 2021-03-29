@@ -55,11 +55,11 @@ public:
 
     //===CUSTOM STUFF===============================================================
     juce::AudioParameterInt* cacheSizeParameter;
-    juce::AudioParameterInt* grainSizeParameter;
+    juce::AudioParameterFloat* grainSizeParameter;
     juce::AudioParameterInt* grainShapeParameter;
     juce::AudioParameterInt* randomnessParameter;
-    juce::AudioParameterInt* grainOverlapParameter;
-    juce::AudioParameterInt* wetDryParameter;
+    juce::AudioParameterFloat* grainOverlapParameter;
+    juce::AudioParameterFloat* wetDryParameter;
 
 private:
     //==============================================================================
