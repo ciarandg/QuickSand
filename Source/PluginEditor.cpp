@@ -6,6 +6,7 @@
   ==============================================================================
 */
 
+#include "GUI/LabeledRotary.h"
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
@@ -14,6 +15,8 @@ QuickSandAudioProcessorEditor::QuickSandAudioProcessorEditor (QuickSandAudioProc
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
     setSize (880, 200);
+    
+    for (LabeledRotary* dial : dials) addAndMakeVisible(*dial);
 }
 
 QuickSandAudioProcessorEditor::~QuickSandAudioProcessorEditor()
@@ -28,4 +31,7 @@ void QuickSandAudioProcessorEditor::paint (juce::Graphics& g)
 
 void QuickSandAudioProcessorEditor::resized()
 {
+  for (int i = 0; i < dials.size(); ++i) {
+    dials[i]->setBounds(ROTARY_WIDTH*i, TOP_PAD, ROTARY_WIDTH, ROTARY_HEIGHT);
+  }
 }

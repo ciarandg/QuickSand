@@ -37,6 +37,7 @@ public:
     setColour(thumbColourId,                juce::Colours::transparentBlack);
     label.setColour(juce::Label::ColourIds::textColourId, COLOUR_TEXT);
   };
+
 private:
   static const int TEXT_BOX_WIDTH = 100;
   static const int TEXT_BOX_HEIGHT = 25;
