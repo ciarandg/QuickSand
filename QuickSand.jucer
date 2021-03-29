@@ -4,6 +4,7 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="B1sxoj" name="QuickSand">
     <GROUP id="{F31D2C79-15D8-CE8F-3592-F2D9F959352A}" name="Source">
+      <FILE id="RE2N6T" name="LabeledRotary.h" compile="0" resource="0" file="Source/GUI/LabeledRotary.h"/>
       <FILE id="Hjghok" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="HH6jzq" name="PluginProcessor.h" compile="0" resource="0"
