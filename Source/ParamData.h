@@ -24,5 +24,5 @@ struct param {
 
 const struct param CACHE_SIZE_PARAM_DATA = {
   500, 5000, 1, 1000,
-  "cache_size", "Cache Size (ms)", " ms"
+  "cache_size", "Cache Size", " ms"
 };

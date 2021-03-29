@@ -7,6 +7,7 @@
 */
 
 #include "PluginProcessor.h"
+#include "ParamData.h"
 #include "PluginEditor.h"
 
 //==============================================================================
@@ -23,8 +24,9 @@ QuickSandAudioProcessor::QuickSandAudioProcessor()
 #endif
 {
     addParameter(cacheSizeParameter = new juce::AudioParameterInt(
-        "cache_size", "Cache Size (ms)", 500, 5000, 1000
-        ));
+        CACHE_SIZE_PARAM_DATA.id, CACHE_SIZE_PARAM_DATA.name,
+        CACHE_SIZE_PARAM_DATA.min, CACHE_SIZE_PARAM_DATA.max, CACHE_SIZE_PARAM_DATA.initial
+    ));
 }
 
 QuickSandAudioProcessor::~QuickSandAudioProcessor()

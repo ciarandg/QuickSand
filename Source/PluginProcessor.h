@@ -53,7 +53,7 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    //==============================================================================
+    //===CUSTOM STUFF===============================================================
     juce::AudioParameterInt* cacheSizeParameter;
 
 private:
