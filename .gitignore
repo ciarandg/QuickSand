@@ -1,3 +1,4 @@
 Builds/
 JuceLibraryCode/
 *.code-workspace
+compile_commands.json
