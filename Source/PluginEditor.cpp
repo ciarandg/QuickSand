@@ -29,7 +29,6 @@ QuickSandAudioProcessorEditor::~QuickSandAudioProcessorEditor()
 void QuickSandAudioProcessorEditor::paint (juce::Graphics& g)
 {
     g.fillAll (COLOUR_BG_DARK);
-    
     g.setColour(COLOUR_BG_LIGHT);
     for (int group = 1; group < dial_groups.size(); ++group) {
       int line_x = getGroupX(group);
