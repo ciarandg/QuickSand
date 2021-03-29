@@ -16,7 +16,9 @@ QuickSandAudioProcessorEditor::QuickSandAudioProcessorEditor (QuickSandAudioProc
 {
     setSize (880, 200);
     
-    for (LabeledRotary* dial : dials) addAndMakeVisible(*dial);
+    for (std::vector<LabeledRotary*> group : dial_groups) {
+      for (LabeledRotary* dial : group) addAndMakeVisible(*dial);
+    }
 }
 
 QuickSandAudioProcessorEditor::~QuickSandAudioProcessorEditor()
@@ -31,7 +33,11 @@ void QuickSandAudioProcessorEditor::paint (juce::Graphics& g)
 
 void QuickSandAudioProcessorEditor::resized()
 {
-  for (int i = 0; i < dials.size(); ++i) {
-    dials[i]->setBounds(ROTARY_WIDTH*i, TOP_PAD, ROTARY_WIDTH, ROTARY_HEIGHT);
+  int dialCount = 0;
+  for (int group = 0; group < dial_groups.size(); ++group) {
+    for (LabeledRotary* dial : dial_groups[group]) {
+      dial->setBounds(ROTARY_WIDTH*dialCount + GROUP_PAD*group, TOP_PAD, ROTARY_WIDTH, ROTARY_HEIGHT);
+      ++dialCount;
+    }
   }
 }

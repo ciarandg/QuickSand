@@ -35,7 +35,7 @@ private:
     static const int TOP_PAD = 40;
     static const int ROTARY_WIDTH = 140;
     static const int ROTARY_HEIGHT = 140;
-    static const int SECTION_PAD = 20;
+    static const int GROUP_PAD = 20;
     
     LabeledRotary cacheSizeRotary {
       500, 5000, 1, 1000,
@@ -58,7 +58,11 @@ private:
       "Wet/Dry", "%", COLOUR_ACCENT_5
     };
     
-    std::vector<LabeledRotary*> dials = { &cacheSizeRotary, &grainSizeRotary, &grainShapeRotary, &grainRandomnessRotary, &wetDryRotary };
+    std::vector<std::vector<LabeledRotary*>> dial_groups = {
+      { &cacheSizeRotary },
+      { &grainSizeRotary, &grainShapeRotary, &grainRandomnessRotary },
+      { &wetDryRotary }
+    };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (QuickSandAudioProcessorEditor)
 };
