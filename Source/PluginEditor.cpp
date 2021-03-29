@@ -39,7 +39,7 @@ void QuickSandAudioProcessorEditor::paint (juce::Graphics& g)
     }
     
     g.setColour(COLOUR_ACCENT_1);
-    grain_shape_graphic.draw(0.5, g);
+    grain_shape_graphic.draw(grainShapeRotary.getValue()*0.01, g);
 }
 
 void QuickSandAudioProcessorEditor::resized()
