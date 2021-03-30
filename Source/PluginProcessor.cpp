@@ -23,30 +23,18 @@ QuickSandAudioProcessor::QuickSandAudioProcessor()
                        )
 #endif
 {
-    addParameter(cacheSizeParameter = new juce::AudioParameterInt(
-        CACHE_SIZE_PARAM_DATA.id, CACHE_SIZE_PARAM_DATA.name,
-        CACHE_SIZE_PARAM_DATA.min, CACHE_SIZE_PARAM_DATA.max, CACHE_SIZE_PARAM_DATA.initial
-    ));
-    addParameter(grainSizeParameter = new juce::AudioParameterFloat(
-        GRAIN_SIZE_PARAM_DATA.id, GRAIN_SIZE_PARAM_DATA.name,
-        GRAIN_SIZE_PARAM_DATA.min, GRAIN_SIZE_PARAM_DATA.max, GRAIN_SIZE_PARAM_DATA.initial
-    ));
-    addParameter(grainShapeParameter = new juce::AudioParameterInt(
-        GRAIN_SHAPE_PARAM_DATA.id, GRAIN_SHAPE_PARAM_DATA.name,
-        GRAIN_SHAPE_PARAM_DATA.min, GRAIN_SHAPE_PARAM_DATA.max, GRAIN_SHAPE_PARAM_DATA.initial
-    ));
-    addParameter(randomnessParameter = new juce::AudioParameterInt(
-        GRAIN_RAND_PARAM_DATA.id, GRAIN_RAND_PARAM_DATA.name,
-        GRAIN_RAND_PARAM_DATA.min, GRAIN_RAND_PARAM_DATA.max, GRAIN_RAND_PARAM_DATA.initial
-    ));
-    addParameter(grainOverlapParameter = new juce::AudioParameterFloat(
-        GRAIN_OVERLAP_PARAM_DATA.id, GRAIN_OVERLAP_PARAM_DATA.name,
-        GRAIN_OVERLAP_PARAM_DATA.min, GRAIN_OVERLAP_PARAM_DATA.max, GRAIN_OVERLAP_PARAM_DATA.initial
-    ));
-    addParameter(wetDryParameter = new juce::AudioParameterFloat(
-        WET_DRY_PARAM_DATA.id, WET_DRY_PARAM_DATA.name,
-        WET_DRY_PARAM_DATA.min, WET_DRY_PARAM_DATA.max, WET_DRY_PARAM_DATA.initial
-    ));
+    initIntParam(&cacheSizeParameter, CACHE_SIZE_PARAM_DATA);
+    addParameter(cacheSizeParameter);
+    initFloatParam(&grainSizeParameter, GRAIN_SIZE_PARAM_DATA);
+    addParameter(grainSizeParameter);
+    initIntParam(&grainShapeParameter, GRAIN_SHAPE_PARAM_DATA);
+    addParameter(grainShapeParameter);
+    initIntParam(&randomnessParameter, GRAIN_RAND_PARAM_DATA);
+    addParameter(randomnessParameter);
+    initFloatParam(&grainOverlapParameter, GRAIN_OVERLAP_PARAM_DATA);
+    addParameter(grainOverlapParameter);
+    initFloatParam(&wetDryParameter, WET_DRY_PARAM_DATA);
+    addParameter(wetDryParameter);
 }
 
 QuickSandAudioProcessor::~QuickSandAudioProcessor()

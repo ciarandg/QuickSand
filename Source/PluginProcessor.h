@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "ParamData.h"
 
 //==============================================================================
 /**
@@ -62,6 +63,13 @@ public:
     juce::AudioParameterFloat* wetDryParameter;
 
 private:
+    void initIntParam(juce::AudioParameterInt** param, const struct param data) {
+      *param = new juce::AudioParameterInt(data.id, data.name, data.min, data.max, data.initial);
+    }
+    void initFloatParam(juce::AudioParameterFloat** param, const struct param data) {
+      *param = new juce::AudioParameterFloat(data.id, data.name, data.min, data.max, data.initial);
+    }
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (QuickSandAudioProcessor)
 };
