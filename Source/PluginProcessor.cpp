@@ -7,7 +7,6 @@
 */
 
 #include "PluginProcessor.h"
-#include "ParamData.h"
 #include "PluginEditor.h"
 
 //==============================================================================

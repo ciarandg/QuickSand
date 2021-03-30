@@ -11,10 +11,10 @@
 #include <JuceHeader.h>
 #include <vector>
 #include "PluginProcessor.h"
-#include "GUI/ColourScheme.h"
-#include "GUI/LabeledRotary.h"
-#include "GUI/EnvelopeGraphic.h"
-#include "ParamData.h"
+#include "UI/ColourScheme.h"
+#include "UI/LabeledRotary.h"
+#include "UI/EnvelopeGraphic.h"
+#include "Data/ParamData.h"
 
 //==============================================================================
 /**

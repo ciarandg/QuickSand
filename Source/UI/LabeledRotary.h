@@ -12,7 +12,7 @@
 
 #include <JuceHeader.h>
 #include "ColourScheme.h"
-#include "../ParamData.h"
+#include "../Data/ParamData.h"
 
 class LabeledRotary : public juce::Slider {
 public:

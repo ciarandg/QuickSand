@@ -6,7 +6,7 @@
   ==============================================================================
 */
 
-#include "GUI/LabeledRotary.h"
+#include "UI/LabeledRotary.h"
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
