@@ -10,6 +10,8 @@
 
 #include <JuceHeader.h>
 #include "Data/ParamData.h"
+#include "Granulator/Granulator.h"
+#include "Granulator/Mixer.h"
 
 //==============================================================================
 /**
@@ -69,6 +71,9 @@ private:
     void initFloatParam(juce::AudioParameterFloat** param, const struct param data) {
       *param = new juce::AudioParameterFloat(data.id, data.name, data.min, data.max, data.initial);
     }
+    
+    Granulator granulator;
+    Mixer mixer;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (QuickSandAudioProcessor)

@@ -9,6 +9,7 @@
 */
 
 #include "Granulator.h"
+#include "RollingCache.cpp"
 
 Granulator::Granulator() : ringBuf(0){};
 
