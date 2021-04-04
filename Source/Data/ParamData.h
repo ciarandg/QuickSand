@@ -26,6 +26,10 @@ const struct param CACHE_SIZE_PARAM_DATA = {
   500, 5000, 1, 1000,
   "cache_size", "Cache Size", " ms"
 };
+const struct param VOICES_PARAM_DATA = {
+  1, 16, 1, 1,
+  "voice_count", "Voices", ""
+};
 const struct param GRAIN_SIZE_PARAM_DATA = {
   1, 450, 0.1, 20,
   "grain_size", "Grain Size", " ms"

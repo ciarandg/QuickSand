@@ -26,6 +26,8 @@ QuickSandAudioProcessor::QuickSandAudioProcessor()
 {
   initIntParam(&cacheSizeParameter, CACHE_SIZE_PARAM_DATA);
   addParameter(cacheSizeParameter);
+  initIntParam(&voicesParameter, VOICES_PARAM_DATA);
+  addParameter(voicesParameter);
   initFloatParam(&grainSizeParameter, GRAIN_SIZE_PARAM_DATA);
   addParameter(grainSizeParameter);
   initIntParam(&grainShapeParameter, GRAIN_SHAPE_PARAM_DATA);

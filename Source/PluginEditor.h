@@ -44,6 +44,9 @@ private:
   LabeledRotary cacheSizeRotary{CACHE_SIZE_PARAM_DATA, COLOUR_ACCENT_2};
   juce::SliderParameterAttachment cacheSizeParamAttach{
       *audioProcessor.cacheSizeParameter, cacheSizeRotary};
+  LabeledRotary voicesRotary{VOICES_PARAM_DATA, COLOUR_ACCENT_2};
+  juce::SliderParameterAttachment voicesParamAttach{
+      *audioProcessor.voicesParameter, voicesRotary};
   LabeledRotary grainSizeRotary{GRAIN_SIZE_PARAM_DATA, COLOUR_ACCENT_1};
   juce::SliderParameterAttachment grainSizeParamAttach{
       *audioProcessor.grainSizeParameter, grainSizeRotary};
@@ -61,7 +64,7 @@ private:
       *audioProcessor.wetDryParameter, wetDryRotary};
 
   std::vector<std::vector<LabeledRotary *>> dial_groups = {
-      {&cacheSizeRotary},
+      {&cacheSizeRotary, &voicesRotary},
       {&grainSizeRotary, &grainShapeRotary, &grainRandomnessRotary,
        &grainOverlapRotary},
       {&wetDryRotary}};

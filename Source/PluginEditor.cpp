@@ -10,7 +10,7 @@
 #include "PluginProcessor.h"
 #include "UI/LabeledRotary.h"
 
-const static int WINDOW_WIDTH = 880;
+const static int WINDOW_WIDTH = 1020;
 const static int WINDOW_HEIGHT = 200;
 
 //==============================================================================

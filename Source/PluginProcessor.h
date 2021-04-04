@@ -59,6 +59,7 @@ public:
   //===CUSTOM
   //STUFF===============================================================
   juce::AudioParameterInt *cacheSizeParameter;
+  juce::AudioParameterInt *voicesParameter;
   juce::AudioParameterFloat *grainSizeParameter;
   juce::AudioParameterInt *grainShapeParameter;
   juce::AudioParameterInt *randomnessParameter;
