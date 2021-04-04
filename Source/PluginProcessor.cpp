@@ -153,7 +153,7 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   }
 
   // output wet/dry mix
-  std::vector<float> mixMonoBuf = mixer.mix(dryMonoBuf, wetMonoBuf, 0.f);
+  std::vector<float> mixMonoBuf = mixer.mix(dryMonoBuf, wetMonoBuf, mix);
   for (int ch = 0; ch < totalNumOutputChannels; ++ch) {
     auto *channelData = buffer.getWritePointer(ch);
     for (int sample = 0; sample < numSamples; ++sample) {

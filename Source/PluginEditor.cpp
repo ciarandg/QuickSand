@@ -10,7 +10,6 @@
 #include "PluginProcessor.h"
 #include "UI/LabeledRotary.h"
 
-
 const static int WINDOW_WIDTH = 880;
 const static int WINDOW_HEIGHT = 200;
 
@@ -19,7 +18,7 @@ QuickSandAudioProcessorEditor::QuickSandAudioProcessorEditor(
     QuickSandAudioProcessor &p)
     : AudioProcessorEditor(&p), audioProcessor(p) {
   setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-  
+
   cacheSizeRotary.addListener(this);
   grainSizeRotary.addListener(this);
   grainShapeRotary.addListener(this);
@@ -60,5 +59,19 @@ void QuickSandAudioProcessorEditor::resized() {
 }
 
 void QuickSandAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
-
+  if (slider == &cacheSizeRotary)
+    audioProcessor.granulator.resize(slider->getValue() *
+                                     audioProcessor.getSamplesPerMillisecond());
+  else if (slider == &grainSizeRotary)
+    audioProcessor.granulator.set_grain_size(
+        slider->getValue() * audioProcessor.getSamplesPerMillisecond());
+  else if (slider == &grainShapeRotary) {
+    audioProcessor.granulator.set_window(slider->getValue() * 0.01f);
+    repaint();
+  } else if (slider == &grainRandomnessRotary)
+    audioProcessor.granulator.set_randomness(slider->getValue() * 0.01f);
+  else if (slider == &grainOverlapRotary)
+    audioProcessor.granulator.set_overlap(slider->getValue());
+  else if (slider == &wetDryRotary)
+    audioProcessor.set_mix(slider->getValue() * 0.01f);
 }
