@@ -7,8 +7,9 @@
 */
 
 #include "PluginProcessor.h"
+#include "Data/ParamData.h"
+#include "Granulator/MultiGranulator.h"
 #include "PluginEditor.h"
-#include "Granulator/Granulator.cpp"
 
 //==============================================================================
 QuickSandAudioProcessor::QuickSandAudioProcessor()
@@ -140,8 +141,9 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // mix wet/dry
 
   // fill wet signal buf
-  granulator.fill(buffer);
-  auto wetMonoBuf = granulator.read(numSamples);
+  MultiGranulator *gran = MultiGranulator::Instance();
+  gran->fill(buffer);
+  auto wetMonoBuf = gran->read(numSamples);
 
   // fill dry signal buf
   std::vector<float> dryMonoBuf;

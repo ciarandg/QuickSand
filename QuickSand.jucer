@@ -11,6 +11,10 @@
         <FILE id="inP2qr" name="Granulator.cpp" compile="1" resource="0" file="Source/Granulator/Granulator.cpp"/>
         <FILE id="RiWZ7D" name="Granulator.h" compile="0" resource="0" file="Source/Granulator/Granulator.h"/>
         <FILE id="x5FGLz" name="Mixer.h" compile="0" resource="0" file="Source/Granulator/Mixer.h"/>
+        <FILE id="ZOjepX" name="MultiGranulator.cpp" compile="1" resource="0"
+              file="Source/Granulator/MultiGranulator.cpp"/>
+        <FILE id="ejPzVw" name="MultiGranulator.h" compile="0" resource="0"
+              file="Source/Granulator/MultiGranulator.h"/>
         <FILE id="h1IKNt" name="RollingCache.cpp" compile="1" resource="0"
               file="Source/Granulator/RollingCache.cpp"/>
         <FILE id="nQ39cb" name="RollingCache.h" compile="0" resource="0" file="Source/Granulator/RollingCache.h"/>

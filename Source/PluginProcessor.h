@@ -9,7 +9,6 @@
 #pragma once
 
 #include "Data/ParamData.h"
-#include "Granulator/MultiGranulator.h"
 #include "Granulator/Mixer.h"
 #include <JuceHeader.h>
 
@@ -57,7 +56,7 @@ public:
   void setStateInformation(const void *data, int sizeInBytes) override;
 
   //===CUSTOM
-  //STUFF===============================================================
+  // STUFF===============================================================
   juce::AudioParameterInt *cacheSizeParameter;
   juce::AudioParameterInt *voicesParameter;
   juce::AudioParameterFloat *grainSizeParameter;
@@ -65,8 +64,6 @@ public:
   juce::AudioParameterInt *randomnessParameter;
   juce::AudioParameterFloat *grainOverlapParameter;
   juce::AudioParameterFloat *wetDryParameter;
-
-  MultiGranulator granulator;
 
   int getSamplesPerMillisecond() { return (int)(getSampleRate() / 1000.); }
 

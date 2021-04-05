@@ -9,10 +9,20 @@
 */
 
 #include "MultiGranulator.h"
-#include "Granulator.h"
-#include <vector>
+
+MultiGranulator *MultiGranulator::_instance = NULL;
+
+MultiGranulator *MultiGranulator::Instance() {
+  if (_instance == NULL)
+    _instance = new MultiGranulator;
+  return _instance;
+}
 
 MultiGranulator::MultiGranulator() : ringBuf(0){};
+
+std::vector<float> MultiGranulator::read(int totalSamples) {
+  return gran.read(totalSamples);
+}
 
 void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
   std::vector<float> mono;
@@ -33,7 +43,7 @@ void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
 }
 
 void MultiGranulator::resize(uint new_size) {
-  gran.clear_overhang;
+  gran.clear_overhang();
   ringBuf.resize(new_size);
 }
 

@@ -25,9 +25,9 @@ public:
 
 private:
   std::vector<float> buffer;
-  uint capacity = 0;    // capacity in samples
-  uint head = 0;        // incremented by inc_head()
-  bool filled = false;  // has the cache been filled yet?
+  uint capacity = 0;   // capacity in samples
+  uint head = 0;       // incremented by inc_head()
+  bool filled = false; // has the cache been filled yet?
 
   int wrap_index(int i);
   void inc_head();

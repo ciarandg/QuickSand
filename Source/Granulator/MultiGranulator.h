@@ -14,9 +14,10 @@
 #include "RollingCache.h"
 #include <JuceHeader.h>
 
+
 class MultiGranulator {
 public:
-  MultiGranulator();
+  static MultiGranulator *Instance();
 
   // PRE: size() >= numSamples
   // poll sample from ringBuf numSamples times
@@ -39,6 +40,10 @@ public:
   float window;
   float overlap;
 
+protected:
+  MultiGranulator();
+
 private:
+  static MultiGranulator *_instance;
   Granulator gran;
 };
