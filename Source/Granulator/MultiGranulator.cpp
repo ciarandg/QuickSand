@@ -21,7 +21,18 @@ MultiGranulator *MultiGranulator::Instance() {
 MultiGranulator::MultiGranulator() : ringBuf(0){};
 
 std::vector<float> MultiGranulator::read(int totalSamples) {
-  return gran.read(totalSamples);
+  std::vector<float> out;
+  out.resize(totalSamples);
+  for (int s = 0; s < totalSamples; ++s)
+    out[s] = 0;
+
+  for (int g = 0; g < voiceCount; ++g) {
+    std::vector<float> voice = granulators[g].read(totalSamples);
+    for (int s = 0; s < totalSamples; ++s)
+      out[s] += voice[s] / voiceCount;
+  }
+
+  return out;
 }
 
 void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
@@ -43,8 +54,15 @@ void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
 }
 
 void MultiGranulator::resize(uint new_size) {
-  gran.clear_overhang();
+  granulators[0].clear_overhang();
   ringBuf.resize(new_size);
+}
+
+void MultiGranulator::set_voice_count(uint count) {
+  voiceCount = count < MAX_GRANULATOR_COUNT ? count : MAX_GRANULATOR_COUNT;
+  for (Granulator gran : granulators) {
+    gran.clear_overhang();
+  }
 }
 
 void MultiGranulator::set_grain_size(float size) { grainSize = size; }

@@ -32,7 +32,7 @@ std::vector<float> Granulator::read(int totalSamples) {
       auto offset =
           maxOffset <= 0
               ? 0
-              : random.nextInt(
+              : parent->random.nextInt(
                     maxOffset); // conditional prevents assertion failure
       grain = parent->ringBuf.read_chunk(parent->grainSize, offset);
       apply_ramp(grain);

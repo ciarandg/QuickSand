@@ -23,7 +23,6 @@ private:
     int samplesToNextGrain = 0;
   };
 
-  juce::Random random;
   struct overhang oh;
 
   void apply_ramp(std::vector<float> &dest);

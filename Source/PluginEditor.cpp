@@ -22,6 +22,7 @@ QuickSandAudioProcessorEditor::QuickSandAudioProcessorEditor(
   setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
   cacheSizeRotary.addListener(this);
+  voicesRotary.addListener(this);
   grainSizeRotary.addListener(this);
   grainShapeRotary.addListener(this);
   grainRandomnessRotary.addListener(this);
@@ -65,6 +66,8 @@ void QuickSandAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
   if (slider == &cacheSizeRotary)
     gran->resize(slider->getValue() *
                  audioProcessor.getSamplesPerMillisecond());
+  else if (slider == &voicesRotary)
+    gran->set_voice_count(slider->getValue());
   else if (slider == &grainSizeRotary)
     gran->set_grain_size(slider->getValue() *
                          audioProcessor.getSamplesPerMillisecond());

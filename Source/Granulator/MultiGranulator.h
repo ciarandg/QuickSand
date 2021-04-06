@@ -14,7 +14,6 @@
 #include "RollingCache.h"
 #include <JuceHeader.h>
 
-
 class MultiGranulator {
 public:
   static MultiGranulator *Instance();
@@ -29,21 +28,25 @@ public:
   void fill(juce::AudioBuffer<float> &source);
 
   void resize(uint new_size);
+  void set_voice_count(uint count);
   void set_grain_size(float size);
   void set_randomness(float pct);
   void set_window(float pct);
   void set_overlap(float grains);
   RollingCache ringBuf;
 
+  int voiceCount = 1;
   int grainSize;
   float randomness;
   float window;
   float overlap;
+  juce::Random random;
 
 protected:
   MultiGranulator();
 
 private:
+  static const int MAX_GRANULATOR_COUNT = 16;
   static MultiGranulator *_instance;
-  Granulator gran;
+  std::array<Granulator, MAX_GRANULATOR_COUNT> granulators;
 };
