@@ -10,6 +10,7 @@
 #include "Data/ParamData.h"
 #include "Granulator/MultiGranulator.h"
 #include "PluginEditor.h"
+#include "Test/TestSuite.h"
 
 //==============================================================================
 QuickSandAudioProcessor::QuickSandAudioProcessor()
@@ -96,6 +97,9 @@ void QuickSandAudioProcessor::prepareToPlay(double sampleRate,
                                             int samplesPerBlock) {
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
+  TestSuite ts {};
+  juce::UnitTestRunner runner {};
+  runner.runAllTests(0);
 }
 
 void QuickSandAudioProcessor::releaseResources() {
