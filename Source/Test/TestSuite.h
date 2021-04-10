@@ -11,8 +11,10 @@
 #pragma once
 
 #include "RollingCacheTest.h"
+#include "GranulatorTest.h"
 
 class TestSuite {
 private:
   const RollingCacheTest rolling_cache_test{};
+  const GranulatorTest granulator_test{};
 };
