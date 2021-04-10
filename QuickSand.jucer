@@ -4,6 +4,11 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="B1sxoj" name="QuickSand">
     <GROUP id="{F31D2C79-15D8-CE8F-3592-F2D9F959352A}" name="Source">
+      <GROUP id="{EB31A995-B973-05BC-1315-37083DDD3E80}" name="Test">
+        <FILE id="MMYroZ" name="RollingCacheTest.h" compile="0" resource="0"
+              file="Source/Test/RollingCacheTest.h"/>
+        <FILE id="bi7s24" name="TestSuite.h" compile="0" resource="0" file="Source/Test/TestSuite.h"/>
+      </GROUP>
       <GROUP id="{8D0221ED-72F1-A30A-42D0-625C0C759E74}" name="Data">
         <FILE id="ofyK6g" name="ParamData.h" compile="0" resource="0" file="Source/Data/ParamData.h"/>
       </GROUP>
