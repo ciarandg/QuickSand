@@ -11,17 +11,17 @@
 #include "Granulator.h"
 #include "GranulatorSettings.h"
 #include "MultiGranulator.h"
+#include "RollingCache.h"
 
 Granulator::Granulator() {}
-Granulator::Granulator(GranulatorSettings *settings) : settings{settings} {}
+Granulator::Granulator(GranulatorSettings *settings, RollingCache *cache) : settings{settings}, cache{cache} {}
 
 std::vector<float> Granulator::read(int totalSamples) {
-  MultiGranulator *parent = MultiGranulator::Instance();
   int samplesToFill = totalSamples;
   int samplesFilled = 0;
   std::vector<float> out;
 
-  if (!parent->ringBuf.is_full()) {
+  if (!cache->is_full()) {
     for (; samplesFilled < samplesToFill; ++samplesFilled)
       out.push_back(0.f);
     return out;
@@ -29,16 +29,16 @@ std::vector<float> Granulator::read(int totalSamples) {
 
   std::vector<float> grain;
   int maxOffset =
-      (parent->ringBuf.get_capacity() - settings->grainSize) * settings->randomness;
+      (cache->get_capacity() - settings->grainSize) * settings->randomness;
   for (; samplesFilled < totalSamples; ++samplesFilled) {
     float samp = 0;
     if (oh.samplesToNextGrain-- <= 0) {
       auto offset =
           maxOffset <= 0
               ? 0
-              : parent->random.nextInt(
+              : random.nextInt(
                     maxOffset); // conditional prevents assertion failure
-      grain = parent->ringBuf.read_chunk(settings->grainSize, offset);
+      grain = cache->read_chunk(settings->grainSize, offset);
       apply_ramp(grain);
 
       oh.samplesToNextGrain = settings->grainSize * settings->overlap;

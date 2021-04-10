@@ -19,7 +19,7 @@ MultiGranulator *MultiGranulator::Instance() {
 }
 
 MultiGranulator::MultiGranulator() : ringBuf(0){
-  for (int g = 0; g < granulators.size(); ++g) granulators[g] = {&settings};
+  for (int g = 0; g < granulators.size(); ++g) granulators[g] = {&settings, &ringBuf};
 };
 
 std::vector<float> MultiGranulator::read(int totalSamples) {
