@@ -15,6 +15,8 @@
       <GROUP id="{6CD92C21-E98B-E7E2-F2FB-129B98E53D7D}" name="Granulator">
         <FILE id="inP2qr" name="Granulator.cpp" compile="1" resource="0" file="Source/Granulator/Granulator.cpp"/>
         <FILE id="RiWZ7D" name="Granulator.h" compile="0" resource="0" file="Source/Granulator/Granulator.h"/>
+        <FILE id="YhUPC8" name="GranulatorSettings.h" compile="0" resource="0"
+              file="Source/Granulator/GranulatorSettings.h"/>
         <FILE id="x5FGLz" name="Mixer.h" compile="0" resource="0" file="Source/Granulator/Mixer.h"/>
         <FILE id="ZOjepX" name="MultiGranulator.cpp" compile="1" resource="0"
               file="Source/Granulator/MultiGranulator.cpp"/>

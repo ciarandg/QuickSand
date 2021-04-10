@@ -11,6 +11,7 @@
 #pragma once
 
 #include "Granulator.h"
+#include "GranulatorSettings.h"
 #include "RollingCache.h"
 #include <JuceHeader.h>
 
@@ -36,10 +37,7 @@ public:
   RollingCache ringBuf;
 
   int voiceCount = 1;
-  int grainSize;
-  float randomness;
-  float window;
-  float overlap;
+  GranulatorSettings settings;
   juce::Random random;
 
 protected:

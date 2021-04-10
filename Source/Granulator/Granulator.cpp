@@ -9,7 +9,11 @@
 */
 
 #include "Granulator.h"
+#include "GranulatorSettings.h"
 #include "MultiGranulator.h"
+
+Granulator::Granulator() {}
+Granulator::Granulator(GranulatorSettings *settings) : settings{settings} {}
 
 std::vector<float> Granulator::read(int totalSamples) {
   MultiGranulator *parent = MultiGranulator::Instance();
@@ -25,7 +29,7 @@ std::vector<float> Granulator::read(int totalSamples) {
 
   std::vector<float> grain;
   int maxOffset =
-      (parent->ringBuf.get_capacity() - parent->grainSize) * parent->randomness;
+      (parent->ringBuf.get_capacity() - settings->grainSize) * settings->randomness;
   for (; samplesFilled < totalSamples; ++samplesFilled) {
     float samp = 0;
     if (oh.samplesToNextGrain-- <= 0) {
@@ -34,10 +38,10 @@ std::vector<float> Granulator::read(int totalSamples) {
               ? 0
               : parent->random.nextInt(
                     maxOffset); // conditional prevents assertion failure
-      grain = parent->ringBuf.read_chunk(parent->grainSize, offset);
+      grain = parent->ringBuf.read_chunk(settings->grainSize, offset);
       apply_ramp(grain);
 
-      oh.samplesToNextGrain = parent->grainSize * parent->overlap;
+      oh.samplesToNextGrain = settings->grainSize * settings->overlap;
 
       for (int i = 0; i < grain.size(); ++i) {
         if (i < oh.data.size())
@@ -62,7 +66,7 @@ void Granulator::clear_overhang() { oh = {}; }
 void Granulator::apply_ramp(std::vector<float> &dest) {
   MultiGranulator *parent = MultiGranulator::Instance();
   int size = dest.size();
-  int ramp_length = float(size) * parent->window; // truncated
+  int ramp_length = float(size) * settings->grainShape; // truncated
   float inc = 1.0f / float(ramp_length);
   for (int i = 0; i < ramp_length; ++i) {
     float mult = inc * i;

@@ -18,7 +18,9 @@ MultiGranulator *MultiGranulator::Instance() {
   return _instance;
 }
 
-MultiGranulator::MultiGranulator() : ringBuf(0){};
+MultiGranulator::MultiGranulator() : ringBuf(0){
+  for (int g = 0; g < granulators.size(); ++g) granulators[g] = {&settings};
+};
 
 std::vector<float> MultiGranulator::read(int totalSamples) {
   std::vector<float> out;
@@ -65,10 +67,10 @@ void MultiGranulator::set_voice_count(uint count) {
   }
 }
 
-void MultiGranulator::set_grain_size(float size) { grainSize = size; }
+void MultiGranulator::set_grain_size(float size) { settings.grainSize = size; }
 
-void MultiGranulator::set_randomness(float pct) { randomness = pct; }
+void MultiGranulator::set_randomness(float pct) { settings.randomness = pct; }
 
-void MultiGranulator::set_window(float pct) { window = pct; }
+void MultiGranulator::set_window(float pct) { settings.grainShape = pct; }
 
-void MultiGranulator::set_overlap(float grains) { overlap = grains; }
+void MultiGranulator::set_overlap(float grains) { settings.overlap = grains; }
