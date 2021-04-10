@@ -30,9 +30,9 @@ std::vector<float> Granulator::read(int totalSamples) {
   std::vector<float> grain;
   int maxOffset =
       (cache->get_capacity() - settings->grainSize) * settings->randomness;
-  for (; samplesFilled < totalSamples; ++samplesFilled) {
+  for (; samplesFilled < totalSamples; ++samplesFilled, --oh.samplesToNextGrain) {
     float samp = 0;
-    if (oh.samplesToNextGrain-- <= 0) {
+    if (oh.samplesToNextGrain <= 0) {
       auto offset =
           maxOffset <= 0
               ? 0
