@@ -26,11 +26,11 @@ std::vector<float> RollingCache::read_chunk(size_t chunk_size, int offset) {
   if (!is_full())
     DBG("CAN'T READ FROM UNFILLED BUFFER");
   std::vector<float> out;
-  int start = wrap_index(head - offset - chunk_size);
+  int start = wrap_index((int) head - (int) chunk_size - offset);
 
   int targetIndex = wrap_index(head - offset);
-  for (int i = start; i != targetIndex; i = wrap_index(i + 1)) {
-    out.push_back(buffer[i]);
+  for (int i = 0; i < chunk_size; ++i) {
+    out.push_back(buffer[wrap_index(start + i)]);
   }
 
   return out;
@@ -56,7 +56,6 @@ int RollingCache::wrap_index(int i) {
 }
 
 void RollingCache::inc_head() {
+  if (!filled && head == capacity - 1) filled = true;
   head = wrap_index(head + 1);
-  if (!filled && head == capacity - 1)
-    filled = true;
 }
