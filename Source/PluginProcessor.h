@@ -10,6 +10,7 @@
 
 #include "Data/ParamData.h"
 #include "Granulator/Mixer.h"
+#include "Granulator/MultiGranulator.h"
 #include <JuceHeader.h>
 
 
@@ -69,6 +70,7 @@ public:
 
   // PRE: 0.f <= mix <= 1.f
   void set_mix(float pct) { mix = pct; }
+  MultiGranulator gran;
 
 private:
   void initIntParam(juce::AudioParameterInt **param, const struct param data) {

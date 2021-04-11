@@ -62,22 +62,21 @@ void QuickSandAudioProcessorEditor::resized() {
 }
 
 void QuickSandAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
-  MultiGranulator *gran = MultiGranulator::Instance();
   if (slider == &cacheSizeRotary)
-    gran->resize(slider->getValue() *
+    audioProcessor.gran.resize(slider->getValue() *
                  audioProcessor.getSamplesPerMillisecond());
   else if (slider == &voicesRotary)
-    gran->set_voice_count(slider->getValue());
+    audioProcessor.gran.set_voice_count(slider->getValue());
   else if (slider == &grainSizeRotary)
-    gran->set_grain_size(slider->getValue() *
+    audioProcessor.gran.set_grain_size(slider->getValue() *
                          audioProcessor.getSamplesPerMillisecond());
   else if (slider == &grainShapeRotary) {
-    gran->set_window(slider->getValue() * 0.01f);
+    audioProcessor.gran.set_window(slider->getValue() * 0.01f);
     repaint();
   } else if (slider == &grainRandomnessRotary)
-    gran->set_randomness(slider->getValue() * 0.01f);
+    audioProcessor.gran.set_randomness(slider->getValue() * 0.01f);
   else if (slider == &grainOverlapRotary)
-    gran->set_overlap(slider->getValue());
+    audioProcessor.gran.set_overlap(slider->getValue());
   else if (slider == &wetDryRotary)
     audioProcessor.set_mix(slider->getValue() * 0.01f);
 }

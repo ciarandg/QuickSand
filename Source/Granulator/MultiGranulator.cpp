@@ -10,14 +10,6 @@
 
 #include "MultiGranulator.h"
 
-MultiGranulator *MultiGranulator::_instance = NULL;
-
-MultiGranulator *MultiGranulator::Instance() {
-  if (_instance == NULL)
-    _instance = new MultiGranulator;
-  return _instance;
-}
-
 MultiGranulator::MultiGranulator() : ringBuf(0){
   for (int g = 0; g < granulators.size(); ++g) granulators[g] = {&settings, &ringBuf};
 };

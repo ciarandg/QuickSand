@@ -145,9 +145,8 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // mix wet/dry
 
   // fill wet signal buf
-  MultiGranulator *gran = MultiGranulator::Instance();
-  gran->fill(buffer);
-  auto wetMonoBuf = gran->read(numSamples);
+  gran.fill(buffer);
+  auto wetMonoBuf = gran.read(numSamples);
 
   // fill dry signal buf
   std::vector<float> dryMonoBuf;

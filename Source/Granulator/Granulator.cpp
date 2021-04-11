@@ -64,7 +64,6 @@ std::vector<float> Granulator::read(int totalSamples) {
 void Granulator::clear_overhang() { oh = {}; }
 
 void Granulator::apply_ramp(std::vector<float> &dest) {
-  MultiGranulator *parent = MultiGranulator::Instance();
   int size = dest.size();
   int ramp_length = float(size) * settings->grainShape; // truncated
   float inc = 1.0f / float(ramp_length);

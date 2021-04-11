@@ -17,7 +17,7 @@
 
 class MultiGranulator {
 public:
-  static MultiGranulator *Instance();
+  MultiGranulator();
 
   // PRE: size() >= numSamples
   // poll sample from ringBuf numSamples times
@@ -40,11 +40,7 @@ public:
   GranulatorSettings settings;
   juce::Random random;
 
-protected:
-  MultiGranulator();
-
 private:
   static const int MAX_GRANULATOR_COUNT = 16;
-  static MultiGranulator *_instance;
   std::array<Granulator, MAX_GRANULATOR_COUNT> granulators;
 };
