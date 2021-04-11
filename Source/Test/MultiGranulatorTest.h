@@ -17,7 +17,7 @@ class MultiGranulatorTest : public juce::UnitTest {
 public:
   MultiGranulatorTest()
       : juce::UnitTest("MultiGranulator Test", "QuickSand"),
-        gran{&gran_settings} {};
+        gran{&gran_settings, &cache} {};
 
   void runTest() override {
     beginTest("Fill MultiGranulator");
@@ -25,5 +25,6 @@ public:
 
 private:
   GranulatorSettings gran_settings;
+  RollingCache cache {0};
   MultiGranulator gran;
 };

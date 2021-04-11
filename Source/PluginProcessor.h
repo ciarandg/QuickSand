@@ -12,6 +12,7 @@
 #include "Granulator/GranulatorSettings.h"
 #include "Granulator/Mixer.h"
 #include "Granulator/MultiGranulator.h"
+#include "Granulator/RollingCache.h"
 #include <JuceHeader.h>
 
 
@@ -72,7 +73,8 @@ public:
   // PRE: 0.f <= mix <= 1.f
   void set_mix(float pct) { mix = pct; }
   GranulatorSettings gran_settings;
-  MultiGranulator gran {&gran_settings};
+  RollingCache cache {0};
+  MultiGranulator gran {&gran_settings, &cache};
 
 private:
   void initIntParam(juce::AudioParameterInt **param, const struct param data) {

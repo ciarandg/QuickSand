@@ -11,10 +11,11 @@
 #include "MultiGranulator.h"
 #include "GranulatorSettings.h"
 
-MultiGranulator::MultiGranulator(GranulatorSettings *settings)
-    : ringBuf(0), settings{settings} {
+MultiGranulator::MultiGranulator(GranulatorSettings *settings,
+                                 RollingCache *cache)
+    : settings{settings}, cache{cache} {
   for (int g = 0; g < granulators.size(); ++g)
-    granulators[g] = {settings, &ringBuf};
+    granulators[g] = {settings, cache};
 };
 
 std::vector<float> MultiGranulator::read(int totalSamples) {
@@ -46,13 +47,13 @@ void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
   }
 
   for (int samp = 0; samp < source.getNumSamples(); ++samp) {
-    ringBuf.write(mono[samp]);
+    cache->write(mono[samp]);
   }
 }
 
 void MultiGranulator::resize(uint new_size) {
   granulators[0].clear_overhang();
-  ringBuf.resize(new_size);
+  cache->resize(new_size);
 }
 
 void MultiGranulator::set_voice_count(uint count) {
