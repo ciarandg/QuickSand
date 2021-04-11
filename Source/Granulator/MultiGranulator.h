@@ -30,10 +30,6 @@ public:
 
   void resize(uint new_size);
   void set_voice_count(uint count);
-  void set_grain_size(float size);
-  void set_randomness(float pct);
-  void set_window(float pct);
-  void set_overlap(float grains);
   RollingCache ringBuf;
 
   int voiceCount = 1;

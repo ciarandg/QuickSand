@@ -58,11 +58,3 @@ void MultiGranulator::set_voice_count(uint count) {
     gran.clear_overhang();
   }
 }
-
-void MultiGranulator::set_grain_size(float size) { settings.grainSize = size; }
-
-void MultiGranulator::set_randomness(float pct) { settings.randomness = pct; }
-
-void MultiGranulator::set_window(float pct) { settings.grainShape = pct; }
-
-void MultiGranulator::set_overlap(float grains) { settings.overlap = grains; }
