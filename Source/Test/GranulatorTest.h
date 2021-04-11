@@ -18,13 +18,20 @@ public:
   GranulatorTest() : juce::UnitTest("Granulator Test", "QuickSand"){};
 
   void runTest() override {
+    beforeEach();
     testFill();
-    testSingleGrain();
-    testTripleGrain();
-    testPartialGrain();
-    testOverlapMin();
-    testOverlapMax();
+    beforeEach();
     testClearOverhang();
+    beforeEach();
+    testSingleGrain();
+    beforeEach();
+    testTripleGrain();
+    beforeEach();
+    testPartialGrain();
+    beforeEach();
+    testOverlapMin();
+    beforeEach();
+    testOverlapMax();
 
     // ? what if grain size is larger than cache size
   }
@@ -40,6 +47,10 @@ private:
   RollingCache cache{CACHE_SIZE};
   Granulator gran{&settings, &cache};
 
+  void beforeEach() { gran.clear_overhang(); }
+
+  // ~~~TESTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // several tests rely on testFill() being run first, to fill the cache
   void testFill() {
     beginTest("Ensure zeroed output while cache is being filled");
     for (int i = 0; i < CACHE_SIZE; ++i) {
@@ -93,7 +104,6 @@ private:
 
   void testOverlapMin() {
     beginTest("Test overlap 0.5");
-    gran.clear_overhang();
     int even_grain_size = GRAIN_SIZE % 2 == 0 ? GRAIN_SIZE : GRAIN_SIZE + 1;
     settings.grainSize = even_grain_size;
     settings.overlap = 0.5f;
@@ -124,9 +134,15 @@ private:
 
   void testOverlapMax() {
     beginTest("Test overlap 2.0");
-    gran.clear_overhang();
     settings.overlap = 2.0f;
-  }
+    int size = settings.grainSize * 3;
+    std::vector<float> grain = gran.read(size);
 
-  void testClearOverhang() { beginTest("Test clear_overhang()"); }
+    for (int s = 0; s < size; ++s) {
+      bool is_silence = s >= settings.grainSize && s < settings.grainSize * 2;
+      expect(grain[s] == is_silence
+                 ? 0
+                 : CACHE_SIZE - settings.grainSize + (s % settings.grainSize));
+    }
+  }
 };
