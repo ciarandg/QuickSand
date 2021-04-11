@@ -51,6 +51,20 @@ private:
     }
   }
 
+  void testClearOverhang() {
+    beginTest("Test clear_overhang()");
+    settings.grainSize = GRAIN_SIZE;
+    std::vector<float> grain;
+
+    grain = gran.read(1);
+    expect(grain[0] == CACHE_SIZE - GRAIN_SIZE);
+    grain = gran.read(1);
+    expect(grain[0] == CACHE_SIZE - GRAIN_SIZE + 1);
+    gran.clear_overhang();
+    grain = gran.read(1);
+    expect(grain[0] == CACHE_SIZE - GRAIN_SIZE);
+  };
+
   void testSingleGrain() {
     beginTest("Test single grain");
     std::vector<float> grain = gran.read(GRAIN_SIZE);
