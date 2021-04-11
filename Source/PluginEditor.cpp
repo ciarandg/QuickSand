@@ -68,15 +68,15 @@ void QuickSandAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
   else if (slider == &voicesRotary)
     audioProcessor.gran.set_voice_count(slider->getValue());
   else if (slider == &grainSizeRotary)
-    audioProcessor.gran.settings.grainSize = slider->getValue() *
+    audioProcessor.gran_settings.grainSize = slider->getValue() *
                          audioProcessor.getSamplesPerMillisecond();
   else if (slider == &grainShapeRotary) {
-    audioProcessor.gran.settings.grainShape = slider->getValue() * 0.01f;
+    audioProcessor.gran_settings.grainShape = slider->getValue() * 0.01f;
     repaint();
   } else if (slider == &grainRandomnessRotary)
-    audioProcessor.gran.settings.randomness = slider->getValue() * 0.01f;
+    audioProcessor.gran_settings.randomness = slider->getValue() * 0.01f;
   else if (slider == &grainOverlapRotary)
-    audioProcessor.gran.settings.overlap = slider->getValue();
+    audioProcessor.gran_settings.overlap = slider->getValue();
   else if (slider == &wetDryRotary)
     audioProcessor.set_mix(slider->getValue() * 0.01f);
 }

@@ -17,7 +17,7 @@
 
 class MultiGranulator {
 public:
-  MultiGranulator();
+  MultiGranulator(GranulatorSettings *settings);
 
   // PRE: size() >= numSamples
   // poll sample from ringBuf numSamples times
@@ -33,7 +33,7 @@ public:
   RollingCache ringBuf;
 
   int voiceCount = 1;
-  GranulatorSettings settings;
+  GranulatorSettings *settings;
   juce::Random random;
 
 private:
