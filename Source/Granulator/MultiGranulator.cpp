@@ -26,8 +26,11 @@ std::vector<float> MultiGranulator::read(int totalSamples) {
 
   for (int g = 0; g < voiceCount; ++g) {
     std::vector<float> voice = granulators[g].read(totalSamples);
-    for (int s = 0; s < totalSamples; ++s)
+    for (int s = 0; s < totalSamples; ++s) {
+      if (settings->randomness == 0.0)
+        jassert(out[s] == voice[s] * g);
       out[s] += voice[s];
+    }
   }
 
   return out;
@@ -52,7 +55,8 @@ void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
 }
 
 void MultiGranulator::resize(uint new_size) {
-  for (Granulator g : granulators) g.clear_overhang();
+  for (Granulator g : granulators)
+    g.clear_overhang();
   cache->resize(new_size);
 }
 
