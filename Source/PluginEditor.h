@@ -69,7 +69,7 @@ private:
        &grainOverlapRotary},
       {&wetDryRotary}};
 
-  EnvelopeGraphic grain_shape_graphic{getDialX(2) + ROTARY_WIDTH / 2, 75};
+  EnvelopeGraphic grain_shape_graphic{getDialX(3) + ROTARY_WIDTH / 2, 75};
 
   int getDialX(int dial_index) {
     std::vector<int> group_sizes;
