@@ -14,7 +14,8 @@
 #include "RollingCache.h"
 
 Granulator::Granulator() {}
-Granulator::Granulator(GranulatorSettings *settings, RollingCache *cache) : settings{settings}, cache{cache} {}
+Granulator::Granulator(GranulatorSettings *settings, RollingCache *cache)
+    : settings{settings}, cache{cache} {}
 
 std::vector<float> Granulator::read(int totalSamples) {
   int samplesToFill = totalSamples;
@@ -30,7 +31,8 @@ std::vector<float> Granulator::read(int totalSamples) {
   std::vector<float> grain;
   int maxOffset =
       (cache->get_capacity() - settings->grainSize) * settings->randomness;
-  for (; samplesFilled < totalSamples; ++samplesFilled, --oh.samplesToNextGrain) {
+  for (; samplesFilled < totalSamples;
+       ++samplesFilled, --oh.samplesToNextGrain) {
     float samp = 0;
     if (oh.samplesToNextGrain <= 0) {
       auto offset =
