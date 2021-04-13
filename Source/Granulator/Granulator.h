@@ -18,6 +18,7 @@ class Granulator {
 public:
   Granulator();
   Granulator(GranulatorSettings *settings, RollingCache *cache);
+  std::vector<float> read(int totalSamples, int grainSize, float overlap, float rand);
   std::vector<float> read(int totalSamples);
   void clear_overhang();
 

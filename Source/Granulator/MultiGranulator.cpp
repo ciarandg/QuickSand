@@ -24,11 +24,12 @@ std::vector<float> MultiGranulator::read(int totalSamples) {
   for (int s = 0; s < totalSamples; ++s)
     out[s] = 0;
 
-  for (int g = 0; g < voiceCount; ++g) {
-    std::vector<float> voice = granulators[g].read(totalSamples);
-    for (int s = 0; s < totalSamples; ++s) {
-      if (settings->randomness == 0.0)
-        jassert(out[s] == voice[s] * g);
+  int gs = settings->grainSize;
+  float ov = settings->overlap;
+  float rand = settings->randomness;
+  for (int g = 0; g < granulators.size(); ++g) {
+    std::vector<float> voice = granulators[g].read(totalSamples, gs, ov, rand);
+    if (g < voiceCount) for (int s = 0; s < totalSamples; ++s) {
       out[s] += voice[s];
     }
   }

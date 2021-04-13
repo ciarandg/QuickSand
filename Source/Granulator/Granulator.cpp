@@ -17,7 +17,7 @@ Granulator::Granulator() {}
 Granulator::Granulator(GranulatorSettings *settings, RollingCache *cache)
     : settings{settings}, cache{cache} {}
 
-std::vector<float> Granulator::read(int totalSamples) {
+std::vector<float> Granulator::read(int totalSamples, int grainSize, float overlap, float randomness) {
   int samplesToFill = totalSamples;
   int samplesFilled = 0;
   std::vector<float> out;
@@ -30,7 +30,7 @@ std::vector<float> Granulator::read(int totalSamples) {
 
   std::vector<float> grain;
   int maxOffset =
-      (cache->get_capacity() - settings->grainSize) * settings->randomness;
+      (cache->get_capacity() - grainSize) * randomness;
   for (; samplesFilled < totalSamples;
        ++samplesFilled, --oh.samplesToNextGrain) {
     float samp = 0;
@@ -40,10 +40,10 @@ std::vector<float> Granulator::read(int totalSamples) {
               ? 0
               : random.nextInt(
                     maxOffset); // conditional prevents assertion failure
-      grain = cache->read_chunk(settings->grainSize, offset);
+      grain = cache->read_chunk(grainSize, offset);
       apply_ramp(grain);
 
-      oh.samplesToNextGrain = settings->grainSize * settings->overlap;
+      oh.samplesToNextGrain = grainSize * overlap;
 
       for (int i = 0; i < grain.size(); ++i) {
         if (i < oh.data.size())
@@ -61,6 +61,10 @@ std::vector<float> Granulator::read(int totalSamples) {
   }
 
   return out;
+}
+
+std::vector<float> Granulator::read(int totalSamples) {
+  return read(totalSamples, settings->grainSize, settings->overlap, settings->randomness);
 }
 
 void Granulator::clear_overhang() { oh = {}; }
