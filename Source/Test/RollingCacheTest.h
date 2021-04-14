@@ -26,13 +26,15 @@ public:
     testFillFromEmpty();
 
     beginTest("Read entire buffer");
-    std::vector<float> chunk = cache.read_chunk(INIT_SIZE, 0);
+    std::vector<float> chunk;
+    chunk.resize(INIT_SIZE);
+    cache.read_chunk(INIT_SIZE, 0, chunk);
     for (int s = 0; s < INIT_SIZE; ++s) {
       expect(chunk[s] == (float) s);
     }
 
     beginTest("Read zero-sized chunk");
-    chunk = cache.read_chunk(0, 0);
+    cache.read_chunk(0, 0, chunk);
     expect(chunk.size() == 0);
 
     beginTest("Read chunks of random sizes and offsets");
@@ -42,7 +44,9 @@ public:
     int cap = cache.get_capacity();
     for (int w = 0; w < cap; ++w) {
       cache.write(cap + w);
-      std::vector<float> buf = cache.read_chunk(cap, 0);
+      std::vector<float> buf;
+      buf.resize(cap);
+      cache.read_chunk(cap, 0, buf);
       for (int r = 0; r < cap; ++r) {
         expect(buf[r] == (r < cap - w) ? r + 1 : cap + w);
       }
@@ -82,7 +86,9 @@ private:
       expect(cache.is_full());
       const uint chunk_size = randMod(cache_size);
       const uint offset = randMod(cache_size - chunk_size + 1);
-      std::vector<float> chunk = cache.read_chunk(chunk_size, offset);
+      std::vector<float> chunk;
+      chunk.resize(chunk_size);
+      cache.read_chunk(chunk_size, offset, chunk);
       
       for (int s = 0; s < chunk_size; ++s) {
         expect(chunk[s] == (float) (cache_size - chunk_size - offset + s));

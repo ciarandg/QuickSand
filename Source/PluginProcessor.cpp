@@ -97,10 +97,10 @@ void QuickSandAudioProcessor::prepareToPlay(double sampleRate,
                                             int samplesPerBlock) {
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
-  TestSuite ts{samplesPerBlock};
+  TestSuite ts{sampleRate, samplesPerBlock};
   juce::UnitTestRunner runner{};
   runner.runAllTests(0);
-  gran = {samplesPerBlock, &gran_settings, &cache};
+  gran = {sampleRate, samplesPerBlock, &gran_settings, &cache};
   dryMonoBuf.resize(samplesPerBlock);
   outBuf.resize(samplesPerBlock);
 }

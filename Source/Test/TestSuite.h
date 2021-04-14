@@ -16,7 +16,9 @@
 
 class TestSuite {
 public:
-  TestSuite(int samplesPerBlock) : multi_granulator_test(samplesPerBlock) {}
+  TestSuite(double sampleRate, int samplesPerBlock)
+      : granulator_test(sampleRate, samplesPerBlock),
+        multi_granulator_test(sampleRate, samplesPerBlock) {}
 
 private:
   const RollingCacheTest rolling_cache_test;

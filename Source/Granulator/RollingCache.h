@@ -18,7 +18,7 @@ public:
   RollingCache(uint capacity);
 
   void write(float value);
-  std::vector<float> read_chunk(size_t chunk_size, int offset);
+  void read_chunk(size_t chunk_size, int offset, std::vector<float> &dest);
   void resize(uint new_size);
   size_t get_capacity();
   bool is_full();

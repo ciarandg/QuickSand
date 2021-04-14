@@ -22,18 +22,16 @@ void RollingCache::write(float value) {
   inc_head();
 }
 
-std::vector<float> RollingCache::read_chunk(size_t chunk_size, int offset) {
+void RollingCache::read_chunk(size_t chunk_size, int offset, std::vector<float> &dest) {
+  jassert(dest.size() >= chunk_size);
   if (!is_full())
     DBG("CAN'T READ FROM UNFILLED BUFFER");
-  std::vector<float> out;
   int start = wrap_index((int) head - (int) chunk_size - offset);
 
   int targetIndex = wrap_index(head - offset);
   for (int i = 0; i < chunk_size; ++i) {
-    out.push_back(buffer[wrap_index(start + i)]);
+    dest[i] = buffer[wrap_index(start + i)];
   }
-
-  return out;
 }
 
 void RollingCache::resize(uint new_size) {

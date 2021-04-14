@@ -15,7 +15,11 @@
 
 class GranulatorTest : public juce::UnitTest {
 public:
-  GranulatorTest() : juce::UnitTest("Granulator Test", "QuickSand"){};
+  GranulatorTest(double sampleRate, int samplesPerBlock)
+      : juce::UnitTest("Granulator Test", "QuickSand"), gran{sampleRate,
+                                                             SAMPLES_PER_BLOCK,
+                                                             &settings,
+                                                             &cache} {};
 
   void runTest() override {
     beforeEach();
@@ -46,7 +50,7 @@ private:
 
   GranulatorSettings settings{GRAIN_SIZE, GRAIN_SHAPE, RANDOMNESS, OVERLAP};
   RollingCache cache{CACHE_SIZE};
-  Granulator gran{&settings, &cache, SAMPLES_PER_BLOCK};
+  Granulator gran;
 
   void beforeEach() { gran.clear_overhang(); }
 
@@ -56,7 +60,6 @@ private:
     beginTest("Ensure zeroed output while cache is being filled");
     for (int i = 0; i < CACHE_SIZE; ++i) {
       std::vector<float> zeroed = gran.read(500);
-      expect(zeroed.size() == 500);
       for (float z : zeroed)
         expect(z == 0.f);
       cache.write(i);
@@ -80,16 +83,14 @@ private:
   void testSingleGrain() {
     beginTest("Test single grain");
     std::vector<float> grain = gran.read(GRAIN_SIZE);
-    expect(grain.size() == GRAIN_SIZE);
-    for (int s = 0; s < grain.size(); ++s)
+    for (int s = 0; s < GRAIN_SIZE; ++s)
       expect(grain[s] == CACHE_SIZE - GRAIN_SIZE + s);
   }
 
   void testTripleGrain() {
     beginTest("Test triple grain");
     std::vector<float> grain = gran.read(GRAIN_SIZE * 3);
-    expect(grain.size() == GRAIN_SIZE * 3);
-    for (int s = 0; s < grain.size(); ++s)
+    for (int s = 0; s < GRAIN_SIZE * 3; ++s)
       expect(grain[s] == CACHE_SIZE - GRAIN_SIZE + (s % GRAIN_SIZE));
   }
 
@@ -98,8 +99,7 @@ private:
     int partial = GRAIN_SIZE * 2.5;
     std::vector<float> grain = gran.read(partial);
     // grain: {35, 36, 37, 38, 39, 35, 36, 37, 38, 39, 35, 36}
-    expect(grain.size() == partial);
-    for (int s = 0; s < grain.size(); ++s)
+    for (int s = 0; s < partial; ++s)
       expect(grain[s] == CACHE_SIZE - GRAIN_SIZE + (s % GRAIN_SIZE));
   }
 
@@ -117,8 +117,7 @@ private:
     //
     //        = {34, 35, 36, 71, 73, 75, 71, 73, 75}
 
-    expect(grain.size() == partial);
-    for (int s = 0; s < grain.size(); ++s) {
+    for (int s = 0; s < partial; ++s) {
       int g1 = s < even_grain_size
                    ? CACHE_SIZE - even_grain_size + (s % even_grain_size)
                    : 0;

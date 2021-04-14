@@ -9,14 +9,17 @@
 */
 
 #include "Granulator.h"
+#include "../Data/ParamData.h"
 #include "GranulatorSettings.h"
 #include "MultiGranulator.h"
 #include "RollingCache.h"
 
 Granulator::Granulator() {}
-Granulator::Granulator(GranulatorSettings *settings, RollingCache *cache, int samplesPerBlock)
+Granulator::Granulator(double sampleRate, int samplesPerBlock,
+                       GranulatorSettings *settings, RollingCache *cache)
     : settings{settings}, cache{cache} {
   outBuf.resize(samplesPerBlock);
+  grain.resize(GRAIN_SIZE_PARAM_DATA.max * sampleRate);
 }
 
 std::vector<float> Granulator::read(int totalSamples, int grainSize,
@@ -30,7 +33,6 @@ std::vector<float> Granulator::read(int totalSamples, int grainSize,
     return outBuf;
   }
 
-  std::vector<float> grain;
   int maxOffset = (cache->get_capacity() - grainSize) * randomness;
   for (; samplesFilled < totalSamples;
        ++samplesFilled, --oh.samplesToNextGrain) {
@@ -41,12 +43,12 @@ std::vector<float> Granulator::read(int totalSamples, int grainSize,
               ? 0
               : random.nextInt(
                     maxOffset); // conditional prevents assertion failure
-      grain = cache->read_chunk(grainSize, offset);
-      apply_ramp(grain);
+      cache->read_chunk(grainSize, offset, grain);
+      apply_ramp(grain, grainSize);
 
       oh.samplesToNextGrain = grainSize * overlap;
 
-      for (int i = 0; i < grain.size(); ++i) {
+      for (int i = 0; i < grainSize; ++i) {
         if (i < oh.data.size())
           oh.data[i] += grain[i];
         else
@@ -71,13 +73,12 @@ std::vector<float> Granulator::read(int totalSamples) {
 
 void Granulator::clear_overhang() { oh = {}; }
 
-void Granulator::apply_ramp(std::vector<float> &dest) {
-  int size = dest.size();
-  int ramp_length = float(size) * settings->grainShape; // truncated
+void Granulator::apply_ramp(std::vector<float> &dest, int length) {
+  int ramp_length = float(length) * settings->grainShape; // truncated
   float inc = 1.0f / float(ramp_length);
   for (int i = 0; i < ramp_length; ++i) {
     float mult = inc * i;
     dest[i] *= mult;
-    dest[size - 1 - i] *= mult;
+    dest[length - 1 - i] *= mult;
   }
 }

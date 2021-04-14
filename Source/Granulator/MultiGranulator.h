@@ -18,7 +18,8 @@
 class MultiGranulator {
 public:
   MultiGranulator();
-  MultiGranulator(int samplesPerBlock, GranulatorSettings *settings, RollingCache *cache);
+  MultiGranulator(double sampleRate, int samplesPerBlock,
+                  GranulatorSettings *settings, RollingCache *cache);
 
   // read a full block of samples into tempBuf and return it
   std::vector<float> read();

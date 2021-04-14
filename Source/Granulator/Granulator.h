@@ -17,8 +17,10 @@
 class Granulator {
 public:
   Granulator();
-  Granulator(GranulatorSettings *settings, RollingCache *cache, int samplesPerBlock);
-  std::vector<float> read(int totalSamples, int grainSize, float overlap, float rand);
+  Granulator(double sampleRate, int samplesPerBlock,
+             GranulatorSettings *settings, RollingCache *cache);
+  std::vector<float> read(int totalSamples, int grainSize, float overlap,
+                          float rand);
   std::vector<float> read(int totalSamples);
   void clear_overhang();
 
@@ -32,6 +34,7 @@ private:
   RollingCache *cache;
   juce::Random random;
   std::vector<float> outBuf;
+  std::vector<float> grain;
 
-  void apply_ramp(std::vector<float> &dest);
+  void apply_ramp(std::vector<float> &dest, int length);
 };

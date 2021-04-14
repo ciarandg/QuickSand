@@ -15,10 +15,10 @@
 
 class MultiGranulatorTest : public juce::UnitTest {
 public:
-  MultiGranulatorTest(int samplesPerBlock)
+  MultiGranulatorTest(double sampleRate, int samplesPerBlock)
       : juce::UnitTest("MultiGranulator Test", "QuickSand"),
-        gran{samplesPerBlock, &gran_settings, &cache}, samplesPerBlock{
-                                                           samplesPerBlock} {};
+        gran{sampleRate, samplesPerBlock, &gran_settings, &cache},
+        samplesPerBlock{samplesPerBlock} {};
 
   void runTest() override {
     beginTest("Fill MultiGranulator");
@@ -70,7 +70,7 @@ public:
       out = gran.read();
       for (int gs = 0; gs < gran_settings.grainSize * 3; ++gs) {
         expect(out[gs] == gs % gran_settings.grainSize <
-                                       gran_settings.grainSize - s - 1
+                              gran_settings.grainSize - s - 1
                    ? gran.voiceCount * (CACHE_SIZE - gran_settings.grainSize +
                                         (gs % gran_settings.grainSize) + 1)
                    : 2 * CACHE_SIZE + gs);
