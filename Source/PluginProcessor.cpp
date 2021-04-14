@@ -146,6 +146,10 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // pull wet buf from Granulator
   // mix wet/dry
 
+  if (nextBlockVoiceCount != gran.voiceCount) {
+    gran.set_voice_count(nextBlockVoiceCount);
+  }
+
   // fill wet signal buf
   gran.fill(buffer);
   auto wetMonoBuf = gran.read();

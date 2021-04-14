@@ -15,7 +15,6 @@
 #include "Granulator/RollingCache.h"
 #include <JuceHeader.h>
 
-
 //==============================================================================
 /**
  */
@@ -72,8 +71,9 @@ public:
 
   // PRE: 0.f <= mix <= 1.f
   void set_mix(float pct) { mix = pct; }
+  void set_voice_count(int count) { nextBlockVoiceCount = count; }
   GranulatorSettings gran_settings;
-  RollingCache cache {0};
+  RollingCache cache{0};
   MultiGranulator gran;
 
 private:
@@ -89,7 +89,9 @@ private:
 
   Mixer mixer;
   float mix;
-  std::vector<float> dryMonoBuf; // resized to samplesPerBlock in prepareToPlay()
+  std::vector<float>
+      dryMonoBuf; // resized to samplesPerBlock in prepareToPlay()
+  int nextBlockVoiceCount = 1; // checked for updates before each block is processed (for syncing purposes)
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(QuickSandAudioProcessor)

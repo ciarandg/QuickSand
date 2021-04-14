@@ -11,7 +11,6 @@
 #include "PluginProcessor.h"
 #include "UI/LabeledRotary.h"
 
-
 const static int WINDOW_WIDTH = 1020;
 const static int WINDOW_HEIGHT = 200;
 
@@ -64,12 +63,12 @@ void QuickSandAudioProcessorEditor::resized() {
 void QuickSandAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
   if (slider == &cacheSizeRotary)
     audioProcessor.gran.resize(slider->getValue() *
-                 audioProcessor.getSamplesPerMillisecond());
+                               audioProcessor.getSamplesPerMillisecond());
   else if (slider == &voicesRotary)
-    audioProcessor.gran.set_voice_count(slider->getValue());
+    audioProcessor.set_voice_count(slider->getValue());
   else if (slider == &grainSizeRotary)
-    audioProcessor.gran_settings.grainSize = slider->getValue() *
-                         audioProcessor.getSamplesPerMillisecond();
+    audioProcessor.gran_settings.grainSize =
+        slider->getValue() * audioProcessor.getSamplesPerMillisecond();
   else if (slider == &grainShapeRotary) {
     audioProcessor.gran_settings.grainShape = slider->getValue() * 0.01f;
     repaint();
