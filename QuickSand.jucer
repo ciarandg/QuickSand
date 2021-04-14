@@ -17,7 +17,6 @@
         <FILE id="RiWZ7D" name="Granulator.h" compile="0" resource="0" file="Source/Granulator/Granulator.h"/>
         <FILE id="YhUPC8" name="GranulatorSettings.h" compile="0" resource="0"
               file="Source/Granulator/GranulatorSettings.h"/>
-        <FILE id="x5FGLz" name="Mixer.h" compile="0" resource="0" file="Source/Granulator/Mixer.h"/>
         <FILE id="ZOjepX" name="MultiGranulator.cpp" compile="1" resource="0"
               file="Source/Granulator/MultiGranulator.cpp"/>
         <FILE id="ejPzVw" name="MultiGranulator.h" compile="0" resource="0"

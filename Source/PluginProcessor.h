@@ -10,7 +10,6 @@
 
 #include "Data/ParamData.h"
 #include "Granulator/GranulatorSettings.h"
-#include "Granulator/Mixer.h"
 #include "Granulator/MultiGranulator.h"
 #include "Granulator/RollingCache.h"
 #include <JuceHeader.h>
@@ -70,7 +69,7 @@ public:
   int getSamplesPerMillisecond() { return (int)(getSampleRate() / 1000.); }
 
   // PRE: 0.f <= mix <= 1.f
-  void set_mix(float pct) { mix = pct; }
+  void set_mix(float pct) { mix_pct_wet = pct; }
   void set_voice_count(int count) { nextBlockVoiceCount = count; }
   void set_cache_size(int size) { nextCacheSize = size; }
   GranulatorSettings gran_settings;
@@ -88,10 +87,11 @@ private:
                                            data.max, data.initial);
   }
 
-  Mixer mixer;
-  float mix;
+  void mix(std::vector<float> dry, std::vector<float> wet);
+  float mix_pct_wet;
   std::vector<float>
       dryMonoBuf; // resized to samplesPerBlock in prepareToPlay()
+  std::vector<float> outBuf;
   int nextBlockVoiceCount = 1; // checked for updates before each block is processed (for syncing purposes)
   int nextCacheSize = 0;
 

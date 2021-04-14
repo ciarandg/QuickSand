@@ -102,6 +102,7 @@ void QuickSandAudioProcessor::prepareToPlay(double sampleRate,
   runner.runAllTests(0);
   gran = {samplesPerBlock, &gran_settings, &cache};
   dryMonoBuf.resize(samplesPerBlock);
+  outBuf.resize(samplesPerBlock);
 }
 
 void QuickSandAudioProcessor::releaseResources() {
@@ -168,12 +169,24 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   }
 
   // output wet/dry mix
-  std::vector<float> mixMonoBuf = mixer.mix(dryMonoBuf, wetMonoBuf, mix);
+  mix(dryMonoBuf, wetMonoBuf);
   for (int ch = 0; ch < totalNumOutputChannels; ++ch) {
     auto *channelData = buffer.getWritePointer(ch);
     for (int sample = 0; sample < numSamples; ++sample) {
-      channelData[sample] = mixMonoBuf[sample];
+      channelData[sample] = outBuf[sample];
     }
+  }
+}
+
+void QuickSandAudioProcessor::mix(std::vector<float> dry,
+                                  std::vector<float> wet) {
+  jassert(dry.size() == wet.size() && wet.size() == outBuf.size());
+  auto size = dry.size();
+  float pct_dry = 1.f - mix_pct_wet;
+
+  outBuf.resize(size);
+  for (int samp = 0; samp < size; ++samp) {
+    outBuf[samp] = (wet[samp] * mix_pct_wet) + (dry[samp] * pct_dry);
   }
 }
 
