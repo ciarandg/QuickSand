@@ -18,7 +18,7 @@ MultiGranulator::MultiGranulator(int samplesPerBlock,
                                  RollingCache *cache)
     : settings{settings}, cache{cache}, samplesPerBlock{samplesPerBlock} {
   for (int g = 0; g < granulators.size(); ++g)
-    granulators[g] = {settings, cache};
+    granulators[g] = {settings, cache, samplesPerBlock};
   tempBuf.resize(samplesPerBlock);
 };
 

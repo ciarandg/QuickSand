@@ -14,19 +14,20 @@
 #include "RollingCache.h"
 
 Granulator::Granulator() {}
-Granulator::Granulator(GranulatorSettings *settings, RollingCache *cache)
-    : settings{settings}, cache{cache} {}
+Granulator::Granulator(GranulatorSettings *settings, RollingCache *cache, int samplesPerBlock)
+    : settings{settings}, cache{cache} {
+  outBuf.resize(samplesPerBlock);
+}
 
 std::vector<float> Granulator::read(int totalSamples, int grainSize,
                                     float overlap, float randomness) {
   int samplesToFill = totalSamples;
   int samplesFilled = 0;
-  std::vector<float> out;
 
   if (!cache->is_full()) {
     for (; samplesFilled < samplesToFill; ++samplesFilled)
-      out.push_back(0.f);
-    return out;
+      outBuf[samplesFilled] = 0.f;
+    return outBuf;
   }
 
   std::vector<float> grain;
@@ -57,10 +58,10 @@ std::vector<float> Granulator::read(int totalSamples, int grainSize,
       samp += oh.data.front();
       oh.data.pop_front();
     }
-    out.push_back(samp);
+    outBuf[samplesFilled] = samp;
   }
 
-  return out;
+  return outBuf;
 }
 
 std::vector<float> Granulator::read(int totalSamples) {

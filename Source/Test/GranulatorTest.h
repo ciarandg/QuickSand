@@ -42,10 +42,11 @@ private:
   const float GRAIN_SHAPE = 0.0; // square
   const float RANDOMNESS = 0.0;
   const float OVERLAP = 1.0; // back-to-back
+  const int SAMPLES_PER_BLOCK = 20;
 
   GranulatorSettings settings{GRAIN_SIZE, GRAIN_SHAPE, RANDOMNESS, OVERLAP};
   RollingCache cache{CACHE_SIZE};
-  Granulator gran{&settings, &cache};
+  Granulator gran{&settings, &cache, SAMPLES_PER_BLOCK};
 
   void beforeEach() { gran.clear_overhang(); }
 
