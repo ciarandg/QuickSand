@@ -10,13 +10,16 @@
 
 #pragma once
 
-#include "RollingCacheTest.h"
 #include "GranulatorTest.h"
 #include "MultiGranulatorTest.h"
+#include "RollingCacheTest.h"
 
 class TestSuite {
+public:
+  TestSuite(int samplesPerBlock) : multi_granulator_test(samplesPerBlock) {}
+
 private:
-  const RollingCacheTest rolling_cache_test{};
-  const GranulatorTest granulator_test{};
-  const MultiGranulatorTest multi_granulator_test{};
+  const RollingCacheTest rolling_cache_test;
+  const GranulatorTest granulator_test;
+  const MultiGranulatorTest multi_granulator_test;
 };

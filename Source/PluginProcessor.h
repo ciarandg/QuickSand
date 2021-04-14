@@ -74,7 +74,7 @@ public:
   void set_mix(float pct) { mix = pct; }
   GranulatorSettings gran_settings;
   RollingCache cache {0};
-  MultiGranulator gran {&gran_settings, &cache};
+  MultiGranulator gran;
 
 private:
   void initIntParam(juce::AudioParameterInt **param, const struct param data) {
@@ -89,6 +89,7 @@ private:
 
   Mixer mixer;
   float mix;
+  std::vector<float> dryMonoBuf; // resized to samplesPerBlock in prepareToPlay()
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(QuickSandAudioProcessor)

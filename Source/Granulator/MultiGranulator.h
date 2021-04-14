@@ -17,12 +17,11 @@
 
 class MultiGranulator {
 public:
-  MultiGranulator(GranulatorSettings *settings, RollingCache *cache);
+  MultiGranulator();
+  MultiGranulator(int samplesPerBlock, GranulatorSettings *settings, RollingCache *cache);
 
-  // PRE: size() >= numSamples
-  // poll sample from ringBuf numSamples times
-  // return vector containing random chunks
-  std::vector<float> read(int totalSamples);
+  // read a full block of samples into tempBuf and return it
+  std::vector<float> read();
 
   // PRE: ringBuf has enough space to contain entirety of the requested channel
   // fill ringBuf with the entirety of the specified channel of specified source
@@ -39,4 +38,6 @@ public:
 private:
   static const int MAX_GRANULATOR_COUNT = 16;
   std::array<Granulator, MAX_GRANULATOR_COUNT> granulators;
+  std::vector<float> tempBuf; // resized by constructor to blocksPerSample
+  int samplesPerBlock;
 };

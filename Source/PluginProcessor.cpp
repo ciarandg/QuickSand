@@ -97,9 +97,11 @@ void QuickSandAudioProcessor::prepareToPlay(double sampleRate,
                                             int samplesPerBlock) {
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
-  TestSuite ts {};
-  juce::UnitTestRunner runner {};
+  TestSuite ts{samplesPerBlock};
+  juce::UnitTestRunner runner{};
   runner.runAllTests(0);
+  gran = {samplesPerBlock, &gran_settings, &cache};
+  dryMonoBuf.resize(samplesPerBlock);
 }
 
 void QuickSandAudioProcessor::releaseResources() {
@@ -146,17 +148,16 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
 
   // fill wet signal buf
   gran.fill(buffer);
-  auto wetMonoBuf = gran.read(numSamples);
+  auto wetMonoBuf = gran.read();
 
   // fill dry signal buf
-  std::vector<float> dryMonoBuf;
-  for (int samp = 0; samp < numSamples; ++samp) {
-    dryMonoBuf.push_back(0);
-  }
   for (int ch = 0; ch < totalNumInputChannels; ++ch) {
     auto readPointer = buffer.getReadPointer(ch);
-    for (int samp = 0; samp < numSamples; ++samp)
+    for (int samp = 0; samp < numSamples; ++samp) {
+      if (ch == 0)
+        dryMonoBuf[samp] = 0.f;
       dryMonoBuf[samp] += readPointer[samp];
+    }
   }
 
   // output wet/dry mix

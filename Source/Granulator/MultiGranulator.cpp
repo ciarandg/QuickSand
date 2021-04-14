@@ -11,47 +11,50 @@
 #include "MultiGranulator.h"
 #include "GranulatorSettings.h"
 
-MultiGranulator::MultiGranulator(GranulatorSettings *settings,
+MultiGranulator::MultiGranulator(){}; // don't use the default constructor!
+
+MultiGranulator::MultiGranulator(int samplesPerBlock,
+                                 GranulatorSettings *settings,
                                  RollingCache *cache)
-    : settings{settings}, cache{cache} {
+    : settings{settings}, cache{cache}, samplesPerBlock{samplesPerBlock} {
   for (int g = 0; g < granulators.size(); ++g)
     granulators[g] = {settings, cache};
+  tempBuf.resize(samplesPerBlock);
 };
 
-std::vector<float> MultiGranulator::read(int totalSamples) {
-  std::vector<float> out;
-  out.resize(totalSamples);
-  for (int s = 0; s < totalSamples; ++s)
-    out[s] = 0;
-
+std::vector<float> MultiGranulator::read() {
   int gs = settings->grainSize;
   float ov = settings->overlap;
   float rand = settings->randomness;
   for (int g = 0; g < granulators.size(); ++g) {
-    std::vector<float> voice = granulators[g].read(totalSamples, gs, ov, rand);
-    if (g < voiceCount) for (int s = 0; s < totalSamples; ++s) {
-      out[s] += voice[s];
+    std::vector<float> voice =
+        granulators[g].read(samplesPerBlock, gs, ov, rand);
+    if (g < voiceCount) {
+      for (int s = 0; s < samplesPerBlock; ++s) {
+        if (g == 0)
+          tempBuf[s] = 0.f;
+        tempBuf[s] += voice[s];
+      }
     }
   }
 
-  return out;
+  return tempBuf;
 }
 
 void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
-  std::vector<float> mono;
   for (int samp = 0; samp < source.getNumSamples(); ++samp) {
-    mono.push_back(0);
+    tempBuf[samp] = 0;
   }
 
   for (int ch = 0; ch < source.getNumChannels(); ++ch) {
     auto *lineIn = source.getReadPointer(ch);
     for (int samp = 0; samp < source.getNumSamples(); ++samp) {
-      mono[samp] += lineIn[samp];
+      tempBuf[samp] += lineIn[samp];
     }
   }
 
   for (int samp = 0; samp < source.getNumSamples(); ++samp) {
-    cache->write(mono[samp]);
+    cache->write(tempBuf[samp]);
   }
 }
 
@@ -63,7 +66,7 @@ void MultiGranulator::resize(uint new_size) {
 
 void MultiGranulator::set_voice_count(uint count) {
   voiceCount = count < MAX_GRANULATOR_COUNT ? count : MAX_GRANULATOR_COUNT;
-  for (Granulator gran : granulators) {
-    gran.clear_overhang();
+  for (int g = 0; g < granulators.size(); ++g) {
+    granulators[g].clear_overhang();
   }
 }
