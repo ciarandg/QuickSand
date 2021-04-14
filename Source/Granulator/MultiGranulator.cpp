@@ -58,12 +58,6 @@ void MultiGranulator::fill(juce::AudioBuffer<float> &source) {
   }
 }
 
-void MultiGranulator::resize(uint new_size) {
-  for (Granulator g : granulators)
-    g.clear_overhang();
-  cache->resize(new_size);
-}
-
 void MultiGranulator::set_voice_count(uint count) {
   voiceCount = count < MAX_GRANULATOR_COUNT ? count : MAX_GRANULATOR_COUNT;
   for (int g = 0; g < granulators.size(); ++g) {

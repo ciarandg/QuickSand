@@ -27,7 +27,6 @@ public:
   // fill ringBuf with the entirety of the specified channel of specified source
   void fill(juce::AudioBuffer<float> &source);
 
-  void resize(uint new_size);
   void set_voice_count(uint count);
 
   int voiceCount = 1;

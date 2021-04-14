@@ -149,6 +149,9 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   if (nextBlockVoiceCount != gran.voiceCount) {
     gran.set_voice_count(nextBlockVoiceCount);
   }
+  if (nextCacheSize != cache.get_capacity()) {
+    cache.resize(nextCacheSize);
+  }
 
   // fill wet signal buf
   gran.fill(buffer);

@@ -72,6 +72,7 @@ public:
   // PRE: 0.f <= mix <= 1.f
   void set_mix(float pct) { mix = pct; }
   void set_voice_count(int count) { nextBlockVoiceCount = count; }
+  void set_cache_size(int size) { nextCacheSize = size; }
   GranulatorSettings gran_settings;
   RollingCache cache{0};
   MultiGranulator gran;
@@ -92,6 +93,7 @@ private:
   std::vector<float>
       dryMonoBuf; // resized to samplesPerBlock in prepareToPlay()
   int nextBlockVoiceCount = 1; // checked for updates before each block is processed (for syncing purposes)
+  int nextCacheSize = 0;
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(QuickSandAudioProcessor)

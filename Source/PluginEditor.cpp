@@ -62,7 +62,7 @@ void QuickSandAudioProcessorEditor::resized() {
 
 void QuickSandAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
   if (slider == &cacheSizeRotary)
-    audioProcessor.gran.resize(slider->getValue() *
+    audioProcessor.set_cache_size(slider->getValue() *
                                audioProcessor.getSamplesPerMillisecond());
   else if (slider == &voicesRotary)
     audioProcessor.set_voice_count(slider->getValue());
