@@ -33,10 +33,6 @@ public:
       expect(chunk[s] == (float) s);
     }
 
-    beginTest("Read zero-sized chunk");
-    cache.read_chunk(0, 0, chunk);
-    expect(chunk.size() == 0);
-
     beginTest("Read chunks of random sizes and offsets");
     testRandomChunks();
 
