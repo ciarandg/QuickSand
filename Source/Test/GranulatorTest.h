@@ -16,10 +16,9 @@
 class GranulatorTest : public juce::UnitTest {
 public:
   GranulatorTest(double sampleRate, int samplesPerBlock)
-      : juce::UnitTest("Granulator Test", "QuickSand"), gran{sampleRate,
-                                                             SAMPLES_PER_BLOCK,
-                                                             &settings,
-                                                             &cache} {};
+      : juce::UnitTest("Granulator Test", "QuickSand"),
+        samplesPerBlock{samplesPerBlock}, gran{sampleRate, samplesPerBlock,
+                                               &settings, &cache} {};
 
   void runTest() override {
     beforeEach();
@@ -36,8 +35,6 @@ public:
     testOverlapMin();
     beforeEach();
     testOverlapMax();
-
-    // ? what if grain size is larger than cache size
   }
 
 private:
@@ -46,7 +43,7 @@ private:
   const float GRAIN_SHAPE = 0.0; // square
   const float RANDOMNESS = 0.0;
   const float OVERLAP = 1.0; // back-to-back
-  const int SAMPLES_PER_BLOCK = 20;
+  int samplesPerBlock;
 
   GranulatorSettings settings{GRAIN_SIZE, GRAIN_SHAPE, RANDOMNESS, OVERLAP};
   RollingCache cache{CACHE_SIZE};

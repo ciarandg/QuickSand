@@ -26,6 +26,10 @@ QuickSandAudioProcessor::QuickSandAudioProcessor()
       )
 #endif
 {
+  TestSuite ts{};
+  juce::UnitTestRunner runner{};
+  runner.runAllTests();
+
   initIntParam(&cacheSizeParameter, CACHE_SIZE_PARAM_DATA);
   addParameter(cacheSizeParameter);
   initIntParam(&voicesParameter, VOICES_PARAM_DATA);
@@ -97,9 +101,6 @@ void QuickSandAudioProcessor::prepareToPlay(double sampleRate,
                                             int samplesPerBlock) {
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
-  TestSuite ts{sampleRate, samplesPerBlock};
-  juce::UnitTestRunner runner{};
-  runner.runAllTests();
   gran = {sampleRate, samplesPerBlock, &gran_settings, &cache};
   dryMonoBuf.resize(samplesPerBlock);
   outBuf.resize(samplesPerBlock);

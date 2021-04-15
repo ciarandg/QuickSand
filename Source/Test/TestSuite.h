@@ -15,13 +15,14 @@
 #include "RollingCacheTest.h"
 
 class TestSuite {
-public:
-  TestSuite(double sampleRate, int samplesPerBlock)
-      : granulator_test(sampleRate, samplesPerBlock),
-        multi_granulator_test(sampleRate, samplesPerBlock) {}
-
 private:
-  const RollingCacheTest rolling_cache_test;
-  const GranulatorTest granulator_test;
-  const MultiGranulatorTest multi_granulator_test;
+  const double SAMP_RATE = 48000;
+  const int SAMPS_PER_BLOCK = 512;
+
+public:
+  TestSuite() {}
+
+  RollingCacheTest rolling_cache_test;
+  GranulatorTest granulator_test{SAMP_RATE, SAMPS_PER_BLOCK};
+  MultiGranulatorTest multi_granulator_test{SAMP_RATE, SAMPS_PER_BLOCK};
 };
