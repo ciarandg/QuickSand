@@ -59,7 +59,7 @@ private:
   void testFill() {
     beginTest("Ensure zeroed output while cache is being filled");
     for (int i = 0; i < CACHE_SIZE; ++i) {
-      std::vector<float> zeroed = gran.read(500);
+      std::vector<float> zeroed = gran.read(samplesPerBlock);
       for (float z : zeroed)
         expect(z == 0.f);
       cache.write(i);
