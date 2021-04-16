@@ -74,7 +74,6 @@ public:
   void set_cache_size(int size) { nextCacheSize = size; }
   GranulatorSettings gran_settings;
   RollingCache cache{0};
-  MultiGranulator gran;
 
 private:
   void initIntParam(juce::AudioParameterInt **param, const struct param data) {
@@ -88,11 +87,14 @@ private:
   }
 
   void mix(std::vector<float> dry, std::vector<float> wet);
-  float mix_pct_wet;
+
+  MultiGranulator gran;
   std::vector<float>
       dryMonoBuf; // resized to samplesPerBlock in prepareToPlay()
   std::vector<float> outBuf;
-  int nextBlockVoiceCount = 1; // checked for updates before each block is processed (for syncing purposes)
+  float mix_pct_wet;
+  int nextBlockVoiceCount = 1; // checked for updates before each block is
+                               // processed (for syncing purposes)
   int nextCacheSize = 0;
 
   //==============================================================================
