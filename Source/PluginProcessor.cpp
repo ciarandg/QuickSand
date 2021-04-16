@@ -26,9 +26,11 @@ QuickSandAudioProcessor::QuickSandAudioProcessor()
       )
 #endif
 {
+  #ifdef DEBUG
   TestSuite ts{};
   juce::UnitTestRunner runner{};
   runner.runAllTests();
+  #endif
 
   initIntParam(&cacheSizeParameter, CACHE_SIZE_PARAM_DATA);
   addParameter(cacheSizeParameter);
