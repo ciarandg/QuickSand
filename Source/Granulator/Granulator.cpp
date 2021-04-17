@@ -78,6 +78,10 @@ void Granulator::apply_ramp(std::vector<float> &dest, int length) {
   float inc = 1.0f / float(ramp_length);
   for (int i = 0; i < ramp_length; ++i) {
     float mult = inc * i;
+
+    // account for envelope's effect on average amplitude
+    mult *= (settings->grainShape + 1.f);
+
     dest[i] *= mult;
     dest[length - 1 - i] *= mult;
   }
