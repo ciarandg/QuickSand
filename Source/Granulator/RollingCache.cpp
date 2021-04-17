@@ -11,8 +11,10 @@
 #include "RollingCache.h"
 #include <JuceHeader.h>
 
-RollingCache::RollingCache(uint capacity) : capacity{capacity} {
-  buffer.resize(capacity);
+RollingCache::RollingCache() : RollingCache(0) {};
+
+RollingCache::RollingCache(uint max_capacity) : capacity{max_capacity} {
+  buffer.resize(max_capacity);
 };
 
 void RollingCache::write(float value) {
@@ -34,8 +36,9 @@ void RollingCache::read_chunk(size_t chunk_size, int offset, std::vector<float> 
   }
 }
 
-void RollingCache::resize(uint new_size) {
-  buffer.resize(new_size);
+void RollingCache::set_capacity(uint new_size) {
+  jassert(new_size <= buffer.size());
+
   for (int samp = 0; samp < new_size; ++samp) {
     buffer[samp] = 0.f;
   }

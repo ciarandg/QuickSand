@@ -106,6 +106,7 @@ void QuickSandAudioProcessor::prepareToPlay(double sampleRate,
   gran = {sampleRate, samplesPerBlock, &gran_settings, &cache};
   dryMonoBuf.resize(samplesPerBlock);
   outBuf.resize(samplesPerBlock);
+  cache = {(uint) (CACHE_SIZE_PARAM_DATA.max / 1000.f * sampleRate)};
 }
 
 void QuickSandAudioProcessor::releaseResources() {
@@ -154,7 +155,7 @@ void QuickSandAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
     gran.set_voice_count(nextBlockVoiceCount);
   }
   if (nextCacheSize != cache.get_capacity()) {
-    cache.resize(nextCacheSize);
+    cache.set_capacity(nextCacheSize);
   }
 
   // fill wet signal buf

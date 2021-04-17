@@ -49,7 +49,7 @@ public:
     }
 
     beginTest("Resize and refill");
-    cache.resize(OTHER_SIZE);
+    cache.set_capacity(OTHER_SIZE);
     expect(cache.get_capacity() == OTHER_SIZE);
     testFillFromEmpty();
 

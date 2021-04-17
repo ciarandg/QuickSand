@@ -15,11 +15,12 @@
 
 class RollingCache {
 public:
+  RollingCache();
   RollingCache(uint capacity);
 
   void write(float value);
   void read_chunk(size_t chunk_size, int offset, std::vector<float> &dest);
-  void resize(uint new_size);
+  void set_capacity(uint new_size);
   size_t get_capacity();
   bool is_full();
 

@@ -73,7 +73,7 @@ public:
   void set_voice_count(int count) { nextBlockVoiceCount = count; }
   void set_cache_size(int size) { nextCacheSize = size; }
   GranulatorSettings gran_settings;
-  RollingCache cache{0};
+  RollingCache cache;
 
 private:
   void initIntParam(juce::AudioParameterInt **param, const struct param data) {
