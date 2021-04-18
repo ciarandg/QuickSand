@@ -33,10 +33,12 @@ std::vector<float> MultiGranulator::read() {
   for (int g = 0; g < granulators.size(); ++g) {
     std::vector<float> voice =
         granulators[g].read(samplesPerBlock, gs, ov, rand);
-    for (int s = 0; s < samplesPerBlock; ++s) {
-      if (g == 0)
-        tempBuf[s] = 0.f;
-      tempBuf[s] += voice[s];
+    if (g < voiceCount) {
+      for (int s = 0; s < samplesPerBlock; ++s) {
+        if (g == 0)
+          tempBuf[s] = 0.f;
+        tempBuf[s] += voice[s] / sqrt(double(voiceCount));
+      }
     }
   }
 
