@@ -22,19 +22,21 @@ MultiGranulator::MultiGranulator(double sampleRate, int samplesPerBlock,
   tempBuf.resize(samplesPerBlock);
 };
 
+const float MultiGranulator::MIN_RAND_MULTI_VOICE = 0.01;
+
 std::vector<float> MultiGranulator::read() {
   int gs = settings->grainSize;
   float ov = settings->overlap;
-  float rand = settings->randomness;
+  float rand = settings->randomness < MIN_RAND_MULTI_VOICE && voiceCount > 1
+                   ? MIN_RAND_MULTI_VOICE
+                   : settings->randomness;
   for (int g = 0; g < granulators.size(); ++g) {
     std::vector<float> voice =
         granulators[g].read(samplesPerBlock, gs, ov, rand);
-    if (g < voiceCount) {
-      for (int s = 0; s < samplesPerBlock; ++s) {
-        if (g == 0)
-          tempBuf[s] = 0.f;
-        tempBuf[s] += voice[s];
-      }
+    for (int s = 0; s < samplesPerBlock; ++s) {
+      if (g == 0)
+        tempBuf[s] = 0.f;
+      tempBuf[s] += voice[s];
     }
   }
 

@@ -37,6 +37,8 @@ public:
 
 private:
   static const int MAX_GRANULATOR_COUNT = 16;
+  static const float
+      MIN_RAND_MULTI_VOICE; // minimum rand when >1 voices (prevents hard-sync)
   std::array<Granulator, MAX_GRANULATOR_COUNT> granulators;
   std::vector<float> tempBuf; // resized by constructor to blocksPerSample
   int samplesPerBlock;
