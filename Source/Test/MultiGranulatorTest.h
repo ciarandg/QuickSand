@@ -40,15 +40,18 @@ public:
     gran.set_voice_count(2);
     out = gran.read();
     expect(out.size() == samplesPerBlock);
-    for (int s = 0; s < out.size(); ++s)
-      expect(out[s] == 2 * (CACHE_SIZE - GRAIN_SIZE + (s % GRAIN_SIZE)));
+    for (int s = 0; s < out.size(); ++s) {
+      float samp_val = CACHE_SIZE - GRAIN_SIZE + (s % GRAIN_SIZE);
+      samp_val = samp_val / sqrt(2.f) * 2.f;
+      expect(out[s] == samp_val);
+    }
 
     beginTest("Sixteen voices");
     gran.set_voice_count(16);
     out = gran.read();
     expect(out.size() == samplesPerBlock);
     for (int s = 0; s < out.size(); ++s)
-      expect(out[s] == 16 * (CACHE_SIZE - GRAIN_SIZE + (s % GRAIN_SIZE)));
+      expect(out[s] == sqrt(16) * (CACHE_SIZE - GRAIN_SIZE + (s % GRAIN_SIZE)));
 
     beginTest("Sixteen voices, new grain size");
     gran_settings.grainSize = 9;
@@ -56,7 +59,7 @@ public:
     out = gran.read();
     expect(out.size() == samplesPerBlock);
     for (int s = 0; s < out.size(); ++s)
-      expect(out[s] == 16 * (CACHE_SIZE - gran_settings.grainSize +
+      expect(out[s] == sqrt(16) * (CACHE_SIZE - gran_settings.grainSize +
                              (s % gran_settings.grainSize)));
 
     beginTest("Cycle writing/reading");
