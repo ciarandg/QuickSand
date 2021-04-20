@@ -32,6 +32,8 @@ public:
     beforeEach();
     testPartialGrain();
     beforeEach();
+    testRandContiguity();
+    beforeEach();
     testOverlapMin();
     beforeEach();
     testOverlapMax();
@@ -98,6 +100,20 @@ private:
     // grain: {35, 36, 37, 38, 39, 35, 36, 37, 38, 39, 35, 36}
     for (int s = 0; s < partial; ++s)
       expect(grain[s] == CACHE_SIZE - GRAIN_SIZE + (s % GRAIN_SIZE));
+  }
+
+  void testRandContiguity() {
+    // ensures that reading with a non-zero randomness parameter results in a
+    // contiguous (in this case, sequential) grain
+    beginTest("Test contiguity of samples within randomly selected grains");
+    settings.randomness = 1.f;
+    for (int i = 0; i < 100; ++i) {
+      std::vector<float> grain = gran.read(settings.grainSize);
+      for (int s = 1; s < settings.grainSize; ++s) {
+        expect(grain[s] == grain[s - 1] + 1);
+      }
+    }
+    settings.randomness = 0.f;
   }
 
   void testOverlapMin() {
