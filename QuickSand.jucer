@@ -5,6 +5,10 @@
   <MAINGROUP id="B1sxoj" name="QuickSand">
     <GROUP id="{F31D2C79-15D8-CE8F-3592-F2D9F959352A}" name="Source">
       <GROUP id="{EB31A995-B973-05BC-1315-37083DDD3E80}" name="Test">
+        <FILE id="vtm1vM" name="GranulatorTest.h" compile="0" resource="0"
+              file="Source/Test/GranulatorTest.h"/>
+        <FILE id="PJADcs" name="MultiGranulatorTest.h" compile="0" resource="0"
+              file="Source/Test/MultiGranulatorTest.h"/>
         <FILE id="MMYroZ" name="RollingCacheTest.h" compile="0" resource="0"
               file="Source/Test/RollingCacheTest.h"/>
         <FILE id="bi7s24" name="TestSuite.h" compile="0" resource="0" file="Source/Test/TestSuite.h"/>

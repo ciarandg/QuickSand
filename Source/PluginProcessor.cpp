@@ -8,7 +8,6 @@
 
 #include "PluginProcessor.h"
 #include "Data/ParamData.h"
-#include "Granulator/MultiGranulator.h"
 #include "PluginEditor.h"
 #include "Test/TestSuite.h"
 

@@ -7,7 +7,6 @@
 */
 
 #include "PluginEditor.h"
-#include "Granulator/MultiGranulator.h"
 #include "PluginProcessor.h"
 #include "UI/LabeledRotary.h"
 

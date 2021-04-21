@@ -11,7 +11,6 @@
 #include "Granulator.h"
 #include "../Data/ParamData.h"
 #include "GranulatorSettings.h"
-#include "MultiGranulator.h"
 #include "RollingCache.h"
 
 Granulator::Granulator() {}
