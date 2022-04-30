@@ -1,6 +1,10 @@
 # QuickSand
 QuickSand is a live-input granular synthesis VST, built in JUCE.
 
+**Note:** QuickSand was my first C++ project, and a capstone project for
+UBC's Applied Music Technology minor. As a result, there are a few rough
+edges; most notably in terms of performance overhead due to excessive iteration.
+
 <p align="center">
   <img src="https://i.imgur.com/ecO6GqO.png" alt="screenshot"/>
 </p>
